@@ -497,4 +497,121 @@ function hi() {
 }
 hi();
 
+//video3
+
+const videoCommand = {
+  pattern: "video3",
+  desc: "To download videos.",
+  react: '🎥',
+  category: "download",
+  filename: __filename
+};
+
+cmd(videoCommand, async (bot, message, chat, context) => {
+  const {
+    from,
+    quoted,
+    body,
+    isCmd,
+    command,
+    args,
+    q,
+    isGroup,
+    sender,
+    senderNumber,
+    botNumber2,
+    botNumber,
+    pushname,
+    isMe,
+    isOwner,
+    groupMetadata,
+    groupName,
+    participants,
+    groupAdmins,
+    isBotAdmins,
+    isAdmins,
+    reply
+  } = context;
+
+  try {
+    if (!q) {
+      return reply("Please give me a URL or title.");
+    }
+
+    const query = convertYouTubeLink(q);
+    const searchResult = await yts(query);
+    const video = searchResult.videos[0];
+    const videoURL = video.url;
+
+    const videoInfo = `
+⫷⦁[ * 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙑𝙄𝘿𝙀𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 * ]⦁⫸
+
+🎥 *Video Found!*
+
+➥ *Title:* ${video.title}
+➥ *Duration:* ${video.timestamp}
+➥ *Views:* ${video.views}
+➥ *Uploaded On:* ${video.ago}
+➥ *Link:* ${video.url}
+
+🎬 *Enjoy the video brought to you by Queen Anju Bot!*
+
+🔽 *To download, send:*
+1.1 *360p Video*
+1.2 *480p Video*
+1.3 *720p Video*
+1.4 *1080p Video*
+
+*Created with ❤️ by Janith Rashmika*`;
+
+    const videoDetailsMessage = {
+      image: { url: video.thumbnail },
+      caption: videoInfo,
+      contextInfo: {
+        externalAdReply: {
+          title: "Queen Anju MD",
+          body: "GitHub Repository",
+          sourceUrl: "https://github.com/Mrrashmika",
+          thumbnailUrl: "https://raw.githubusercontent.com/Niko-AND-Janiya/ANJU-DATA/main/LOGOS/logo.jpg",
+          mediaType: 1
+        }
+      }
+    };
+
+    const sentMessage = await bot.sendMessage(from, videoDetailsMessage);
+    const messageId = sentMessage.key.id;
+
+    bot.ev.on("messages.upsert", async (update) => {
+      const newMessage = update.messages[0];
+      if (!newMessage?.message) return;
+
+      const userInput = newMessage.message.conversation || newMessage.message.extendedTextMessage?.text;
+      const isReplyToBotMessage = newMessage.message.extendedTextMessage?.contextInfo?.stanzaId === messageId;
+
+      if (isReplyToBotMessage) {
+        if (userInput.startsWith("1.")) {
+          const resolution = userInput === "1.1" ? "360p" :
+                             userInput === "1.2" ? "480p" :
+                             userInput === "1.3" ? "720p" :
+                             "1080p";
+
+          const downloadLink = await ytmp4(videoURL, resolution);
+
+          const downloadMessage = {
+            video: { url: downloadLink },
+            caption: `🎥 *${resolution} Video* downloaded successfully!`,
+            contextInfo: videoDetailsMessage.contextInfo
+          };
+
+          await bot.sendMessage(from, downloadMessage);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    reply("An error occurred while processing your request.");
+  }
+});
+
+
   
