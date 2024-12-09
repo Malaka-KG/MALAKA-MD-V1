@@ -284,6 +284,7 @@ reply(`${e}`)
 }
 })
 
+
 cmd({
     pattern: "ping",
     desc: "Check bot's response time.",
