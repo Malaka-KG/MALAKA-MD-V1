@@ -47,7 +47,7 @@ const Crypto = require('crypto')
 const path = require('path')
 const prefix = config.PREFIX
 
-const ownerNumber = ['94776114551']
+const ownerNumber = ['94704243771']
 
 //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/session/creds.json')) {
@@ -70,7 +70,7 @@ const port = process.env.PORT || 9090;
 //=============================================
 
 async function connectToWA() {
-console.log("CONNECTING SILENT-SOBX-MD BOT🧬...");
+console.log("CONNECTING MALAKA-MD-V1 BOT💮...");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/session/')
 var { version } = await fetchLatestBaileysVersion()
 
@@ -98,10 +98,10 @@ require("./plugins/" + plugin);
 }
 });
 console.log('PLUGINS FILES INSTALL SUCCESSFULLY ✅')
-console.log('SILENT-SOBX-MD CONNECTED TO WHATSAPP ENJOY ✅')
+console.log('MALAKA-MD-V1 CONNECTED TO WHATSAPP ENJOY ✅')
 
 let up = `
-*[ •  SILENT-SOBX-MD - STARTED‎ • ]*
+*[ •  MALAKA-MD-V1 - STARTED‎ • ]*
 *╭┈───────────────•*
 *│  ◦* *_Congratulations Your Bot Active Successfully_*
 *│  ◦*
@@ -324,7 +324,7 @@ command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, i
 })
 }
 app.get("/", (req, res) => {
-res.send("HEY, SILENT-SOBX-MD STARTED ✅");
+res.send("HEY, MALAKA-MD-V1 STARTED ✅");
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 setTimeout(() => {
