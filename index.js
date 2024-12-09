@@ -52,6 +52,15 @@ const port = process.env.PORT || 9090;
 //=============================================
 
 async function connectToWA() {
+
+//===========connect mongodb===================
+const connectDB = require('./lib/mongodb')
+connectDB();
+//==============================================
+const {readEnv} = require('./lib/database')   
+const config = await readEnv();
+//==============================================
+    
 console.log("CONNECTING MALAKA-MD-V1 BOT💮...");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/session/')
 var { version } = await fetchLatestBaileysVersion()
