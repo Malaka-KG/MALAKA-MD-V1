@@ -32,13 +32,13 @@ const prefix = config.PREFIX
 const ownerNumber = config.OWNER_NUMBER
 
 //===================SESSION-AUTH============================
-if (!fs.existsSync(__dirname + '/lib/session/creds.json')) {
+if (!fs.existsSync(__dirname + '/session/creds.json')) {
     if (config.SESSION_ID) {
       const sessdata = config.SESSION_ID
       const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
       filer.download((err, data) => {
         if (err) throw err
-        fs.writeFile(__dirname + '/lib/session/creds.json', data, () => {
+        fs.writeFile(__dirname + '/session/creds.json', data, () => {
           console.log("Session download completed !!")
         })
       })
@@ -61,7 +61,7 @@ const config = await readEnv();
 //==============================================
     
 console.log("CONNECTING MALAKA-MD-V1 BOT💮...");
-const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/ilb//session/')
+const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/session/')
 var { version } = await fetchLatestBaileysVersion()
 
 const conn = makeWASocket({
