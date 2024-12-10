@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { cmd } = require('../command');
+const { cmd } = require('../lib/command');
 
 cmd({
     pattern: "gpass",
