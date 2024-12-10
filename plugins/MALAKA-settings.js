@@ -18,7 +18,7 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
     try {
         let desc = `
 ┏━━━━━━━━━━━━━━━━━━━━━━━┓
-┃⚙ DARK_ALFHA_MD BOT SETTINGS ⚙
+┃⚙ MALAKA-MD BOT SETTINGS ⚙
 ┃━━━━━━━━━━━━━━━━━━━━━━━┃
 ┣━💼 Work Mode : 𝙿𝚄𝙱𝙻𝙸𝙲🌎/𝙿𝚁𝙸𝚅𝙰𝚃𝙴/𝙸𝙽𝙱𝙾𝚇/𝙶𝚁𝙾𝚄𝙿
 ┣━🔊 Auto Voice : ♻ 𝙾𝙽/𝙾𝙵𝙵
@@ -68,7 +68,7 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┃   ┗ 8.2 🛑 Auto react Off
 ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
-> *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ*`;
+> *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ *`;
 
         const vv = await conn.sendMessage(from, { image: { url: "https://i.ibb.co/V2pdBTJ/20241111-195632.jpg"}, caption: desc }, { quoted: mek });
 
