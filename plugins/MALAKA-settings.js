@@ -54,6 +54,18 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┣━ AUTO REPLY ⤵
 ┃   ┣ 5.1 ✍ Auto reply On
 ┃   ┗ 5.2 ✍❌ Auto reply Off
+
+┣━ AUTO_REACT ⤵
+┃   ┣ 6.1 👩‍💻 Auto react On
+┃   ┗ 6.2 🛑 Auto react Off
+
+┣━ HEART_REACT ⤵
+┃   ┣ 7.1 🍁 Auto react On
+┃   ┗ 7.2 🛑 Auto react Off
+
+┣━ OWNER_REACT ⤵
+┃   ┣ 8.1 💮 Auto react On
+┃   ┗ 8.2 🛑 Auto react Off
 ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
 > *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ*`;
@@ -115,7 +127,31 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
                     case '5.2':    
                         reply(".update AUTO_REPLY:false");
                         reply(".restart");
-                    break;                        
+                    break;
+                    case '6.1':    
+                        reply(".update AUTO_REACT:true");
+                        reply(".restart");
+                    break;
+                    case '6.2':    
+                        reply(".update AUTO_REACT:false");
+                        reply(".restart");
+                    break;
+                    case '7.1':    
+                        reply(".update HEART_REACT:true");
+                        reply(".restart");
+                    break;
+                    case '7.2':    
+                        reply(".update HEART_REACT:false");
+                        reply(".restart");
+                    break;
+                    case '8.1':    
+                        reply(".update OWNER_REACT:true");
+                        reply(".restart");
+                    break;
+                    case '8.2':    
+                        reply(".update OWNER_REACT:false");
+                        reply(".restart");
+                    break;
             
                     default:
                         reply("Invalid option. Please select a valid option🔴");
