@@ -1,4 +1,4 @@
-const { cmd } = require('../command');
+const { cmd } = require('../lib/command');
 const { exec } = require('child_process');
 const config = require('../config');
 
