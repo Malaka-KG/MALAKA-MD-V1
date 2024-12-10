@@ -86,3 +86,76 @@ await conn.sendMessage(from, { audio: { url: url }, mimetype: 'audio/mpeg', ptt:
 reply(`${a}`)
 }
 })
+
+cmd({
+  pattern: "trt",
+  desc: "Translate text between languages",
+  react: '🌐',
+  use: ".trt <language code> <text>",
+  category: "convert",
+  filename: __filename
+}, async (client, message, chat, {
+  from,
+  q,
+  reply
+}) => {
+  try {
+    // Split the input text into language code and the text to be translated
+    const input = q.split(" ");
+    
+    if (input.length < 2) {
+      return reply("❗ Please provide a language code and text. Usage: .translate [language code] [text]");
+    }
+
+    const languageCode = input[0]; // The first part is the language code
+    const textToTranslate = input.slice(1).join(" "); // The rest is the text to be translated
+    
+    // Construct the translation API URL
+    const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textToTranslate)}&langpair=en|${languageCode}`;
+    
+    // Get the translation response from the API
+    const response = await axios.get(apiUrl);
+    const translatedText = response.data.responseData.translatedText;
+    
+    // Format the translation result
+    const translationInfo = `
+🌍 *Translation* 🌍
+
+🔤 *Original*: ${textToTranslate}
+🔠 *Translated*: ${translatedText}
+🌐 *Language*: ${languageCode.toUpperCase()}
+
+`;
+
+    return reply(translationInfo);
+  } catch (error) {
+    console.log(error);
+    return reply("⚠️ An error occurred while translating the text. Please try again later.");
+  }
+});
+
+cmd({
+    pattern: "boom",
+    desc: "Send a custom message any number of times (owner only).",
+    category: "main",
+    react: "💣",
+    filename: __filename
+},
+async (conn, mek, m, { from, args, senderNumber, isOwner, reply }) => {
+    try {
+        if (!isOwner) {
+            return reply('❌ This command is restricted to the owner only.');
+        }
+        const count = parseInt(args[0]) || 10;
+        const customText = args.slice(1).join(' ') || 'Boom!';
+
+        for (let i = 0; i < count; i++) {
+            await conn.sendMessage(from, { text: customText });
+        }
+        reply(`✅ Sent ${count} messages.`);
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
+});
+
