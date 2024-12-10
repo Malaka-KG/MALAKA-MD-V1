@@ -148,7 +148,7 @@ cmd({
 
     // Build options menu
     const caption = `
-    *ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ ꜰʙ⚬*⌛ᴅᴜʀᴀᴛɪᴏɴ*
+    *ᴍᴀʟᴀᴋᴀ-ᴍᴅ ꜰʙ⚬*⌛ᴅᴜʀᴀᴛɪᴏɴ*
     *Duration*: ${videoData.result.duration}
     ╭──────────────────❖
     │ © 𝙏𝙤 𝙙𝙤𝙬𝙣𝙡𝙤𝙖𝙙 𝙨𝙚𝙣𝙙: 🔢
@@ -164,7 +164,7 @@ cmd({
     │ _➃ *ᴅᴏᴄᴜᴍᴇɴᴛ*
     │ _➄ *ᴠᴏɪᴄᴇ*
     ╰──────────────────❖
-    > ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+    > ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
     `;
 
     const menuMessage = await bot.sendMessage(from, {
@@ -187,10 +187,10 @@ cmd({
 
         switch (userChoice) {
           case "1":
-            await bot.sendMessage(from, { video: { url: links.SD }, caption: ">*ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ SD video." });
+            await bot.sendMessage(from, { video: { url: links.SD }, caption: ">*ᴍᴀʟᴀᴋᴀ-ᴍᴅ SD video." });
             break;
           case "2":
-            await bot.sendMessage(from, { video: { url: links.HD }, caption: ">*ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ HD video." });
+            await bot.sendMessage(from, { video: { url: links.HD }, caption: ">*ᴍᴀʟᴀᴋᴀ-ᴍᴅ HD video." });
             break;
           case "3":
             await bot.sendMessage(from, { audio: { url: links.SD }, mimetype: "audio/mpeg" });
@@ -247,7 +247,7 @@ cmd({
 
     // Send options to user
     const caption = `
-    *ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ ᴛɪᴋᴛᴏᴋ⚬*⌛ᴛɪᴛʟᴇ*
+    *ᴍᴀʟᴀᴋᴀ-ᴍᴅ ᴛɪᴋᴛᴏᴋ⚬*⌛ᴛɪᴛʟᴇ*
     *Title*: ${videoData.result.title}
     ╭──────────────────❖
     │ © 𝙏𝙤 𝙙𝙤𝙬𝙣𝙡𝙤𝙖𝙙 𝙨𝙚𝙣𝙙: 🔢
@@ -262,7 +262,7 @@ cmd({
     │ _➂ *ᴀᴜᴅɪᴏ* ᴍᴀʟᴀᴋᴀ-ᴍᴅ*
     │ 
     ╰──────────────────❖
-    > ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+    > ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
     `;
     const menuMessage = await bot.sendMessage(from, {
       image: { url: videoData.result.image },
@@ -283,9 +283,9 @@ cmd({
         const { dl_link } = videoData.result;
 
         if (userChoice === '1') {
-          await bot.sendMessage(from, { video: { url: dl_link.download_mp4_1 }, caption: "> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ SD video!" });
+          await bot.sendMessage(from, { video: { url: dl_link.download_mp4_1 }, caption: "> ᴍᴀʟᴀᴋᴀ-ᴍᴅ SD video!" });
         } else if (userChoice === '2') {
-          await bot.sendMessage(from, { video: { url: dl_link.download_mp4_2 }, caption: "> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ HD video!" });
+          await bot.sendMessage(from, { video: { url: dl_link.download_mp4_2 }, caption: "> ᴍᴀʟᴀᴋᴀ-ᴍᴅ HD video!" });
         } else if (userChoice === '3') {
           await bot.sendMessage(from, { audio: { url: dl_link.download_mp3 }, mimetype: "audio/mpeg" });
         } else {
@@ -335,7 +335,7 @@ cmd({
       await _0x386562.sendMessage(_0x2b1245, {
         video: { url: video.url },
         mimetype: "video/mp4",
-        caption: "> © ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ · · ·*"
+        caption: "> © ᴍᴀʟᴀᴋᴀ-ᴍᴅ · · ·*"
       }, { quoted: _0x1b4817 });
     }
 
@@ -730,7 +730,7 @@ let ytmsg = `
 ╰─────────────────❖
 ──────────────────❖
 ╭────────────────❖
-│ ℹ️ *DARK_ALFHA_MD* 
+│ ℹ️ *MALAKA-MD* 
 │
 │☍ ⦁ *TITLE :* ${yts.title}
 │☍ ⦁ *AUTHOR :* ${yts.author.name}
@@ -738,7 +738,7 @@ let ytmsg = `
 │☍ ⦁ *VIEWS :* ${yts.views}
 ╰────────────────❖
 ──────────────────❖
-> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+> ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
 `
 // SEND DETAILS
 await conn.sendMessage(from, { image: { url: yts.thumbnail || yts.image || '' }, caption: `${ytmsg}`}, { quoted: mek });
@@ -781,14 +781,14 @@ const msg = `
 ╰─────────────────❖
 ──────────────────❖
 ╭────────────────❖
-│ ℹ️ *DARK_ALFHA_MD* 
+│ ℹ️ *MALAKA-MD* 
 │
 │☍ ⦁ *File Name* - ${mfire.result.fileName}
 │☍ ⦁ *File Size* - ${mfire.result.size}
 │☍ ⦁ *Upload Date and Time* - ${mfire.result.date}
 ╰────────────────❖
 ──────────────────❖
-> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+> ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
 `
   
 // SEND DETAILS
@@ -827,7 +827,7 @@ const msg = `
 ╰─────────────────❖
 ──────────────────❖
 ╭────────────────❖
-│ ℹ️ *DARK_ALFHA_MD* 
+│ ℹ️ *MALAKA-MD* 
 │
 │☍ ⦁ *Title* - ${tiktok.result.title}
 │☍ ⦁ *Author* - ${tiktok.result.author}
@@ -835,7 +835,7 @@ const msg = `
 │☍ ⦁ *Views* - ${tiktok.result.views}
 ╰────────────────❖
 ──────────────────❖
-> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+> ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
 `
   
 // SEND DETAILS
@@ -948,6 +948,7 @@ cmd({
   alias: ["dlpussyb", "pussybdown", "hentaivid"],
   desc: "Download adult videos from pussyboy.net.",
   category: "nsfw",
+  react: "🔞",
   filename: __filename
 }, async (bot, message, context, {
   from,
@@ -1002,24 +1003,3 @@ cmd({
     reply('Error: ' + error.message);
   }
 });
-
-cmd({
-    pattern: "hirunews",
-    react: "🍎",
-    desc: "",
-    category: "search",
-    use: '.hirunews',
-},
-async(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-const data = await fetchJson(`https://vajira-api.vercel.app/news/hiru`);
-let info = `*📃 Title :* ${data.result.title}
-*🕒 Time:* ${data.result.date} 
-*⛓️ Link:* ${data.result.link}
-*📚 Description:* ${data.result.desc}
-`
-return await conn.sendMessage(from, { image: { url: data.img} , caption: info } , { quoted: mek })
-} catch (e) {
-l(e)
-}
-})
