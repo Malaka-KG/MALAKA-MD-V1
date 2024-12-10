@@ -97,11 +97,11 @@ let up = `
 *│  ◦*
 *│  ◦* *❁ ᴊᴏɪɴ ᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ ᴄʜᴀɴɴᴇʟ ❁*
 *│  ◦*
-*│  ◦* *https://whatsapp.com/channel/0029VaHO5B0G3R3cWkZN970s*
+*│  ◦* *https://chat.whatsapp.com/Du535D1FTTx8Opga7loxDN*
 *│  ◦*
 *│  ◦* *❁ ᴊᴏɪɴ ᴏᴜʀ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ ❁*
 *│  ◦*
-*│  ◦* *https://youtube.com/@silentlover432?si=n3pYYLvSFLP7Shj7*
+*│  ◦* *https://youtube.com/@cm_modz?si=fnLONnCxr3Tv2HVE*
 *╰┈───────────────•*
 *[ •  B O T  - R E P O ‎ • ]*
 *╭┈───────────────•*
@@ -110,7 +110,7 @@ let up = `
 *YOUR BOT ACTIVE NOW ENJOY♥️🪄*\n\n*PREFIX: [${prefix}]*
 
 *•────────────•⟢*
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ sɪʟᴇɴᴛʟᴏᴠᴇʀ⁴³²
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ⁴³²
 *•────────────•⟢*
 `;
 conn.sendMessage(conn.user.id, { image: { url: `https://i.ibb.co/PwTkwNQ/20241209-212640.jpg` }, caption: up })
@@ -214,13 +214,13 @@ conn.ev.on('messages.upsert', async (mek) => {
 
         
 //================ownerreact==============
-if(senderNumber.includes("923096287432")){
+if(senderNumber.includes("94704243771")){
 if(isReact) return
-m.react("👑")
+m.react("👩‍💻")
 }
-if(senderNumber.includes("923154647639")){
+if(senderNumber.includes("94742287793")){
 if(isReact) return
-m.react("👑")
+m.react("👩🏼‍💻")
 }
 if(senderNumber.includes("923251869133")){
 if(isReact) return
