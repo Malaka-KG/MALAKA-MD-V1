@@ -280,7 +280,7 @@ if(!isOwner && isGroup && config.MODE === "groups") return
 
 
         
-const events = require('./command')
+const events = require('./lib/command')
 const cmdName = isCmd ? body.slice(1).trim().split(" ")[0].toLowerCase() : false;
 if (isCmd) {
 const cmd = events.commands.find((cmd) => cmd.pattern === (cmdName)) || events.commands.find((cmd) => cmd.alias && cmd.alias.includes(cmdName))
