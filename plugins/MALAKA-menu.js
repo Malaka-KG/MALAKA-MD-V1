@@ -8,21 +8,22 @@ const axios = require('axios')
 cmd({
   pattern: "menu",
   desc: "Commands panel",
-  react: '📃',
+  react: '📜',
   filename: __filename
 }, async (bot, message, args, options) => {
   const { from, quoted, reply } = options;
 
   try {
     // Menu Text
-    const menuText = `╭═════════════════○
+    const menuText = `
+╭═════════════════⚆
 │ *Creator* : Lasmitha Praveeith
 │ *Version* : v0.1
 │ *Uptime*  : ${runtime(process.uptime())}
 │ *RAM Usage* : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB
 │ *Host Name* : ${require('os').hostname()}
-╰═════════════════○
-│📃 *LIST MENU*
+╰═════════════════⚆
+│💮 *LIST MENU*
 │   ───────
 │ _1_ *❂ᴅᴏᴡɴʟᴏᴀᴅ menu❂*
 │ _2_ *❂ᴏᴡɴᴇʀ menu❂*
@@ -32,14 +33,14 @@ cmd({
 │ _6_ *❂ꜱᴇᴀʀᴄʜ menu❂*
 │ _7_ *❂ꜰᴜɴ menu❂*
 │ _8_ *❂ʙᴜɢ menu❂*
-╰═════════════════○
+╰═════════════════⚆
 *🌟 Reply the Number you want to select*
 
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴀᴋᴀ-ᴍᴅ 💭`;
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 💮`;
 
     // Send Menu Message
     const sentMenuMessage = await bot.sendMessage(from, {
-      image: { url: "https://i.ibb.co/N21xLgs/20241205-223523.jpg" },
+      image: { url: "https://i.ibb.co/PwTkwNQ/20241209-212640.jpg" },
       caption: menuText
     }, { quoted: message });
 
@@ -48,10 +49,10 @@ cmd({
     // Define responses for each option
     const menuResponses = {
 '1': { imageCaption:
-`╭═════════════════○
-> ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇɴᴜ 💐
-╰═════════════════○
-╭═════════════════○
+`╭═════════════════⚆
+> ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇɴᴜ 👩‍💻
+╰═════════════════⚆
+╭═════════════════⚆
 *🎶 .ꜱᴏɴɢ*
 > (ʏᴏᴜᴛᴜʙᴇ ꜱᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅ)
 
@@ -95,13 +96,13 @@ cmd({
 > (ꜱᴇx ᴠɪᴅᴇᴏ ᴅᴏᴡɴʟᴏᴀᴅ)
 ╰═════════════════○
 
-> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴀᴋᴀ-ᴍᴅ 💭` },
+> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 💮` },
 
       '2': { imageCaption: 
-`╭═════════════════○
+`╭═════════════════⚆
 > ᴏᴡɴᴇʀ ᴍᴇɴᴜ 👨‍💻
-╰═════════════════○
-╭═════════════════○
+╰═════════════════⚆
+╭═════════════════⚆
 *⚙️ .ꜱᴇᴛᴛɪɴɢꜱ*
 > (ʙᴏᴛ ꜱᴇᴛᴛɪɴɢꜱ ᴄʜᴀɴɢʀ)
 
@@ -132,15 +133,15 @@ cmd({
 *🕯️ .ʟᴇᴀᴠᴇ*
 > (ɢʀᴏᴜᴘ ʟᴇᴀᴠᴇ)
 
-╰═════════════════○
+╰═════════════════⚆
 
-> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴀᴋᴀ-ᴍᴅ 💭` },
+> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 💮` },
 
       '3': { imageCaption: 
-`╭═════════════════○
+`╭═════════════════⚆
 > ɢʀᴏᴜᴘ ᴍᴇɴᴜ 👥
-╰═════════════════○
-╭═════════════════○
+╰═════════════════⚆
+╭═════════════════⚆
 *👤 .ᴀᴅᴅ*
 > (ɢʀᴏᴜᴘ ᴍᴀᴍᴍʙᴜꜱ ᴀᴅᴅ)
 
@@ -183,23 +184,23 @@ cmd({
 *⚰️ .ᴇɴᴅ*
 > (ɢʀᴏᴜᴘ ᴇɴᴅ.)
 
-╰═════════════════○
+╰═════════════════⚆
 
-> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴀᴋᴀ-ᴍᴅ 💭` },
+> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 💮` },
 
       '4': { imageCaption: 
-`╭═════════════════○
+`╭═════════════════⚆
 > ᴄᴏɴᴠᴇʀᴛ ᴍᴇɴᴜ 🌀
-╰═════════════════○
-╭═════════════════○
+╰═════════════════⚆
+╭═════════════════⚆
 *🚀 .ꜱᴛɪᴄᴋᴇʀ*
 > (ɪᴍɢ ᴛᴏ ᴄᴏɴᴠᴇʀᴛ ꜱᴛɪᴄᴋᴇʀ)
 
 *🌐 .ᴛʀᴛ*
 > (ʟᴀɴɢᴜᴀɢᴇ ᴛʀᴀɴꜱʟᴀᴛᴇʀ)
-╰═════════════════○
+╰═════════════════⚆
 
-> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴀᴋᴀ-ᴍᴅ 💭` },
+> > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 💮` },
 
       '5': { imageCaption: 
 "More details for Option 5 🚀" },
@@ -227,7 +228,7 @@ cmd({
         if (response) {
           // Send image response
           await bot.sendMessage(from, {
-            image: { url: "https://i.ibb.co/N21xLgs/20241205-223523.jpg" },
+            image: { url: "https://i.ibb.co/PwTkwNQ/20241209-212640.jpg" },
             caption: response.imageCaption
           }, { quoted: newMessage });
         } else {
