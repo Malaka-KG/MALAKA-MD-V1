@@ -114,7 +114,7 @@ cmd({
  ╰─────────────────────❖
  ──────────────────❖
 ╭────────────────❖
-│ ℹ️ *DARK_ALFHA_MD* 
+│ ℹ️ *MALAKA-MD* 
 │
 │☍ ⦁ *Title:* ${video.title} 
 │☍ ⦁ *Duration:* ${video.timestamp}
@@ -129,7 +129,7 @@ cmd({
 │──────────────────❖
 │ *➁*  ᴅᴏᴄᴜᴍᴇɴᴛ ꜰɪʟᴇ 📂
 ⁠⁠⁠⁠╰──────────────────❖
-> ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+> ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
     `;
 
     // Send initial message with video details and options
@@ -181,7 +181,7 @@ cmd({
             document: { url: downloadUrl },
             mimetype: 'audio/mp3',
             fileName: `${video.title}.mp3`,
-            caption: "\n*© Created by Sadeesha Coder · · ·*\n "
+            caption: "\n*© Created by ᴍᴀʟᴀᴋᴀ-ᴍᴅ · · ·*\n "
           }, { quoted: userResponse });
           await bot.sendMessage(userChatId, { react: { text: '✅', key: userResponse.key } });
         }
@@ -218,11 +218,11 @@ cmd({
     // Construct the details message
     let detailsMessage = `
       ╭─────────────────❖
-      │𝘔𝘈𝘓𝘈𝘒𝘈 VIDEO DOWNLOADING
+      │VIDEO DOWNLOADING
       ╰─────────────────❖
        ──────────────────❖
       ╭────────────────❖
-      │ ℹ️ *DARK_ALFHA_MD* 
+      │ ℹ️ *MALAKA-MD* 
       │
       │☍ ⦁ *Title:* ${video.title}
       │☍ ⦁ *Duration:* ${video.timestamp}
@@ -244,7 +244,7 @@ cmd({
       │ _➁.➂ 720ᴘ
       │ _➁.➃ 1080ᴘ
       ╰──────────────────❖
-     > © ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻
+     > © ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
     `;
 
     // Send the image with the details message
@@ -318,7 +318,7 @@ cmd({
         if (text.startsWith("1.")) {
           await client.sendMessage(chatId, {
             video: { url: videoUrlWithResolution },
-            caption: "\n* © ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻*\n"
+            caption: "\n* © ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻*\n"
           }, {
             quoted: receivedMessage
           });
@@ -327,7 +327,7 @@ cmd({
             document: { url: videoUrlWithResolution },
             mimetype: "video/mp4",
             fileName: `${video.title}.mp4`,
-            caption: "\n* © ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ . . . 👩‍💻 *\n"
+            caption: "\n* © ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻 *\n"
           }, {
             quoted: receivedMessage
           });
@@ -446,11 +446,11 @@ cmd({
     // Create message with video details
     let caption = `
     ╭─────────────────❖
-    │𝘔𝘈𝘓𝘈𝘒𝘈 VIDEO2 DOWNLOADING
+    │VIDEO2 DOWNLOADING
     ╰─────────────────❖
        ──────────────────❖
       ╭────────────────❖
-      │ ℹ️ *DARK_ALFHA_MD* 
+      │ ℹ️ *MALAKA-MD* 
       │
       │☍ ⦁ *Title:* ${video.title}
       │☍ ⦁ *Duration:* ${video.timestamp}
@@ -544,7 +544,7 @@ cmd(videoCommand, async (bot, message, chat, context) => {
     const videoURL = video.url;
 
     const videoInfo = `
-⫷⦁[ * 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙑𝙄𝘿𝙀𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 * ]⦁⫸
+⫷⦁[ * VIDEO3 DOWNLOADING * ]⦁⫸
 
 🎥 *Video Found!*
 
@@ -562,14 +562,14 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 1.3 *720p Video*
 1.4 *1080p Video*
 
-*Created with ❤️ by Janith Rashmika*`;
+*🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳 𝚅1💕⃟**`;
 
     const videoDetailsMessage = {
       image: { url: video.thumbnail },
       caption: videoInfo,
       contextInfo: {
         externalAdReply: {
-          title: "Queen Anju MD",
+          title: "MALAKA-MD",
           body: "GitHub Repository",
           sourceUrl: "https://github.com/Mrrashmika",
           thumbnailUrl: "https://raw.githubusercontent.com/Niko-AND-Janiya/ANJU-DATA/main/LOGOS/logo.jpg",
