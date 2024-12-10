@@ -6,7 +6,7 @@ const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 const googleTTS = require('google-tts-api')
 const { getRandom } = require('../lib/functions')
 
-var imgmsg = 'ᴍᴀʟᴀᴋᴀ-ᴍᴅ ʙʏ ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ!'
+var imgmsg = 'ᴍᴀʟᴀᴋᴀ-ᴍᴅ 👩‍💻!'
 var descg = 'ᴍᴀʟᴀᴋᴀ-ᴍᴅ.'
 //__________________________sticker____________________
 cmd({
