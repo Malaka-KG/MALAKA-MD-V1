@@ -113,7 +113,7 @@ let up = `
 > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ sɪʟᴇɴᴛʟᴏᴠᴇʀ⁴³²
 *•────────────•⟢*
 `;
-conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/h5ddpq.jpg` }, caption: up })
+conn.sendMessage(conn.user.id, { image: { url: `https://i.ibb.co/PwTkwNQ/20241209-212640.jpg` }, caption: up })
 
 }
 })
