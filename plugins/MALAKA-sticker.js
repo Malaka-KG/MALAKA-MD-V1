@@ -1,7 +1,7 @@
 //Created by malaka DARK_ALFHA_MD 🧑🏻‍💻
 
 const axios = require('axios')
-const {cmd , commands} = require('../command')
+const {cmd , commands} = require('../lib/command')
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 const googleTTS = require('google-tts-api')
 const { getRandom } = require('../lib/functions')
