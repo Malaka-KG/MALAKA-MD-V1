@@ -1,6 +1,6 @@
 {
   "name": "MALAKA-MD-V1",
-  "description": "ᴊᴀᴠᴀsᴄʀɪᴘᴛ ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ ᴄʀᴇᴀᴛᴇᴅ ʙʏ sɪʟᴇɴᴛʟᴏᴠᴇʀ⁴³²",
+  "description": "ᴊᴀᴠᴀsᴄʀɪᴘᴛ ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ⁴³²",
   "logo": "https://i.ibb.co/PwTkwNQ/20241209-212640.jpg",
   "keywords": ["bot"],
   "success_url": "/",
@@ -11,6 +11,13 @@
       "description": "Put the session-id here.",
       "required": true,
       "value": ""
+      
+    },
+    "MONGODB": {
+      "description": "Put your MongoDB Database URL here.",
+      "required": true,
+      "default": ""
+      
     },  
     
     "ALIVE_IMG": {
