@@ -17,6 +17,12 @@
       "description": "Put your MongoDB Database URL here.",
       "required": true,
       "default": ""
+
+    },
+    "OWNER_NUMBER": {
+      "description": "Owner Number",
+      "required": true,
+      "default": "94704243771"
       
     },  
     
