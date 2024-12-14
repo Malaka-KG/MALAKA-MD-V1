@@ -67,14 +67,6 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┃   ┣ 8.1 🌸 Auto react On
 ┃   ┗ 8.2 ❌ Auto react Off
 ┃
-┣━ ANTI_LINK ⤵
-┃   ┣ 9.1 🪀 Auto link On
-┃   ┗ 9.2 ❌ Auto link Off
-┃
-┣━ ANTI_BAD_WORD ⤵
-┃   ┣ 10.1 ⚠️ Auto bad-word On
-┃   ┗ 10.2 ❌ Auto bad-word Off
-┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
 > *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ *`;
 
@@ -158,22 +150,6 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
                     break;
                     case '8.2':    
                         reply(".update OWNER_REACT:false");
-                        reply(".restart");
-                    break;
-                    case '9.1':    
-                        reply(".update ANTI_LINK:true");
-                        reply(".restart");
-                    break;
-                    case '9.2':    
-                        reply(".update ANTI_LINK:false");
-                        reply(".restart");
-                    break;
-                    case '10.1':    
-                        reply(".update ANTI_BAD_WORD:true");
-                        reply(".restart");
-                    break;
-                    case '10.2':    
-                        reply(".update ANTI_BAD_WORD:false");
                         reply(".restart");
                     break;
 
