@@ -131,21 +131,6 @@ cmd({
 ⁠⁠⁠⁠╰──────────────────❖
 > ᴍᴀʟᴀᴋᴀ-ᴍᴅ . . . 👩‍💻
     `;
-
-    const videoDetailsMessage = {
-      image: { url: video.thumbnail },
-      caption: videoInfo,
-      contextInfo: {
-        externalAdReply: {
-          title: "MALAKA-MD",
-          body: "GitHub Repository",
-          sourceUrl: "https://github.com/Mrrashmika",
-          thumbnailUrl: "https://raw.githubusercontent.com/Niko-AND-Janiya/ANJU-DATA/main/LOGOS/logo.jpg",
-          mediaType: 1
-        }
-      }
-    };
-    
     // Send initial message with video details and options
     const sentMessage = await bot.sendMessage(from, {
       image: { url: video.thumbnail },
