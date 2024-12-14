@@ -312,7 +312,7 @@ cmd({
       contacts: {
         displayName: "🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳💕⃟*",
         contacts: [{
-          vcard: "BEGIN:VCARD\nVERSION:3.0\nFN: LakaOfc\nORG: Web Developer;\nTEL;type=CELL;type=VOICE;waid=94704243771:+94742287793\nEND:VCARD"
+          vcard: "BEGIN:VCARD\nVERSION:3.0\nFN: 🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳💕⃟*\nORG: Web Developer;\nTEL;type=CELL;type=VOICE;waid=94704243771:+94704243771\nEND:VCARD"
         }]
       },
       quoted
