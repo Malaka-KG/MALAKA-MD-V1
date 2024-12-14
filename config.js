@@ -13,4 +13,5 @@ module.exports = {
     PREFIX: process.env.PREFIX || ".",
     OMDB_API_KEY: process.env.OMDB_API_KEY || "76cb7f39", // omdbapi.com
     ANTI_LINK: process.env.ANTI_LINK || "true",
+    ANTI_BAD_WORD: process.env.ANTI_BAD_WORD || "true",
 };
