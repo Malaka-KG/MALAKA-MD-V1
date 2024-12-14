@@ -14,5 +14,7 @@
 "pako":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/pako.m4a",
 "ponnaya":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/ponnaya.aac",
 ".alive":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/alive-malaka.mp3",
-".menu":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/MALAKA-MD.aac"
+".menu":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/MALAKA-MD.aac",
+".song":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/MALAKA-MD-Song.mp3",
+".video":"https://github.com/Malaka-KG/MALAKA-MD/raw/refs/heads/main/autovoice/MALAKA-MD-video.mp3"
 }
