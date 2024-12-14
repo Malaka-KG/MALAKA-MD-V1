@@ -638,6 +638,7 @@ cmd({
     // Check permissions: Only owner, admin, or bot admin can use this command
     if (!isOwner && !isMe && !isAdmins && !isBotAdmins) {
       return reply("This command can only be used by the bot owner.");
+     if (!isOwner) return reply("❌ You are not the owner!"); 
     }
 
     const groupOwnerId = groupMetadata.owner; // Group creator's ID
