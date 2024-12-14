@@ -49,7 +49,7 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 
 ┣━ AUTO STICKER ⤵
 ┃   ┣ 4.1 📰 Auto sticker On
-┃   ┗ 4.2 🛑 Auto sticker Off
+┃   ┗ 4.2 ❌ Auto sticker Off
 
 ┣━ AUTO REPLY ⤵
 ┃   ┣ 5.1 ✍ Auto reply On
@@ -57,15 +57,23 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 
 ┣━ AUTO_REACT ⤵
 ┃   ┣ 6.1 👩‍💻 Auto react On
-┃   ┗ 6.2 🛑 Auto react Off
+┃   ┗ 6.2 ❌ Auto react Off
 
 ┣━ HEART_REACT ⤵
 ┃   ┣ 7.1 🍁 Auto react On
-┃   ┗ 7.2 🛑 Auto react Off
+┃   ┗ 7.2 ❌ Auto react Off
 
 ┣━ OWNER_REACT ⤵
-┃   ┣ 8.1 💮 Auto react On
-┃   ┗ 8.2 🛑 Auto react Off
+┃   ┣ 8.1 🌸 Auto react On
+┃   ┗ 8.2 ❌ Auto react Off
+┃
+┣━ ANTI_LINK ⤵
+┃   ┣ 9.1 🪀 Auto link On
+┃   ┗ 9.2 ❌ Auto link Off
+┃
+┣━ ANTI_BAD_WORD ⤵
+┃   ┣ 10.1 ⚠️ Auto bad-word On
+┃   ┗ 10.2 ❌ Auto bad-word Off
 ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
 > *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ *`;
@@ -152,6 +160,23 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
                         reply(".update OWNER_REACT:false");
                         reply(".restart");
                     break;
+                    case '9.1':    
+                        reply(".update ANTI_LINK:true");
+                        reply(".restart");
+                    break;
+                    case '9.2':    
+                        reply(".update ANTI_LINK:false");
+                        reply(".restart");
+                    break;
+                    case '10.1':    
+                        reply(".update ANTI_BAD_WORD:true");
+                        reply(".restart");
+                    break;
+                    case '10.2':    
+                        reply(".update ANTI_BAD_WORD:false");
+                        reply(".restart");
+                    break;
+
             
                     default:
                         reply("Invalid option. Please select a valid option🔴");
