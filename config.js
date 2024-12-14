@@ -11,5 +11,6 @@ module.exports = {
     OWNER_NUMBER: process.env.OWNER_NUMBE || "94704243771",
     ALIVE_IMG: process.env.ALIVE_IMG || "https://i.ibb.co/PwTkwNQ/20241209-212640.jpg",
     PREFIX: process.env.PREFIX || ".",
-    OMDB_API_KEY: process.env.OMDB_API_KEY || "76cb7f39", // omdbapi.com
+    ANTI_LINK: process.env.ANTI_LINK || "true",
+    ANTI_BAD_WORD: process.env.ANTI_BAD_WORD || "true",
 };
