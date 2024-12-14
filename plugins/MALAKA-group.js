@@ -635,21 +635,20 @@ cmd({
   reply 
 }) => {
   try {
-    // Check permissions: Only owner, admin, or bot admin can use this command
-    if (!isOwner && !isMe && !isAdmins && !isBotAdmins) {
+      if (!isGroup) {
+      return reply("This command can only be used in groups.");
+    }
+        if (!isOwner && !isAdmins) {
       return reply("This command can only be used by the bot owner.");
-     if (!isOwner) return reply("❌ You are not the owner!"); 
     }
 
-    const groupOwnerId = groupMetadata.owner; // Group creator's ID
-    const botId = botInstance.user.id; // Bot's ID
+    const groupOwnerId = groupMetadata.owner;
+    const botId = botInstance.user.id;
 
-    // Filter out group owner and bot from the participants to remove
     const membersToRemove = groupMetadata.participants.filter(participant => 
       participant.id !== groupOwnerId && participant.id !== botId
     );
 
-    // Remove all other participants
     await botInstance.groupParticipantsUpdate(from, membersToRemove.map(member => member.id), "remove");
     reply("*🚫 All members have been removed from the group (except the bot and group creator).*");
   } catch (error) {
