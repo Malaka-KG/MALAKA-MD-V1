@@ -38,17 +38,6 @@ cmd({
     if (!isGroup) {
       return reply("❌ This command can only be used in groups!");
     }
-
-    // Check if the bot is an admin
-    if (!isBotAdmins) {
-      return reply("❌ I need to be a group admin to perform this action!");
-    }
-
-    // Check if the user is an admin
-    if (!isAdmins) {
-      return reply("❌ Only group admins can use this command!");
-    }
-
     // Check if a message is provided
     const customMessage = args.join(" ");
     if (!customMessage) {
