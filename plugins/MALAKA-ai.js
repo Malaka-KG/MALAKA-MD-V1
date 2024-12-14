@@ -38,6 +38,10 @@ cmd({
     if (!isGroup) {
       return reply("❌ This command can only be used in groups!");
     }
+     if (!isOwner) {
+      return reply("❌This command can only be used by the bot owner.");
+    }
+    
     // Check if a message is provided
     const customMessage = args.join(" ");
     if (!customMessage) {
@@ -78,4 +82,4 @@ cmd({
     });
     reply("❌ Error: " + error.message);
   }
-});
+}); 
