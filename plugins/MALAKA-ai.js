@@ -310,7 +310,7 @@ cmd({
   try {
     await message.sendMessage(from, {
       contacts: {
-        displayName: "LakaOfc",
+        displayName: "🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳💕⃟*",
         contacts: [{
           vcard: "BEGIN:VCARD\nVERSION:3.0\nFN: LakaOfc\nORG: Web Developer;\nTEL;type=CELL;type=VOICE;waid=94704243771:+94742287793\nEND:VCARD"
         }]
