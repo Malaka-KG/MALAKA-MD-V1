@@ -310,55 +310,7 @@ mek.type === "stickerMessage"
 ) {
 command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply})
 }});
-
-//================================
-
-//================ ANTI DELETE ================
-
-conn.ev.on('messages.delete', async (message) => {
-    if (config.ANTI_DELETE === "true" && message.remoteJid.endsWith('@g.us')) {
-        try {
-            // Load deleted message details
-            const deletedMessage = await conn.loadMessage(message.remoteJid, message.id);
-            if (deletedMessage) {
-                const deletedContent = deletedMessage.message;
-
-                let notificationText = `🚨 Deleted Message Detected 🚨\n\n`;
-                notificationText += `From: ${deletedMessage.pushName || 'Unknown'} (@${deletedMessage.participant.split('@')[0] || 'Unknown'})\n`;
-
-                if (deletedContent) {
-                    if (deletedContent.conversation) {
-                        notificationText += `Message: ${deletedContent.conversation}`;
-                    } else if (deletedContent.extendedTextMessage) {
-                        notificationText += `Message: ${deletedContent.extendedTextMessage.text}`;
-                    } else if (deletedContent.imageMessage) {
-                        notificationText += `Message: [Image with caption: ${deletedContent.imageMessage.caption || 'No caption'}]`;
-                    } else if (deletedContent.videoMessage) {
-                        notificationText += `Message: [Video with caption: ${deletedContent.videoMessage.caption || 'No caption'}]`;
-                    } else {
-                        notificationText += `Message: [${Object.keys(deletedContent)[0]} message]`;
-                    }
-                } else {
-                    notificationText += `Message: [Unable to retrieve deleted content]`;
-                }
-
-                // Send notification to the chat where the message was deleted
-                await conn.sendMessage(message.remoteJid, { text: notificationText });
-
-                // If it's an image or video, send the media as well
-                if (deletedContent && (deletedContent.imageMessage || deletedContent.videoMessage)) {
-                    const mediaType = deletedContent.imageMessage ? 'image' : 'video';
-                    const mediaBuffer = await downloadMediaMessage(deletedMessage, 'buffer');
-                    await conn.sendMessage(message.remoteJid, { [mediaType]: mediaBuffer, caption: 'Deleted media' });
-                }
-            }
-        } catch (error) {
-            console.error('Error handling deleted message:', error);
-        }
-    }
-});
-
-//================================    
+ 
 })
 }
 app.get("/", (req, res) => {
