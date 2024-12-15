@@ -16,7 +16,7 @@
 const {
   cmd,
   commands
-} = require("../lib/command");
+} = require("../command");
 const {
   getBuffer,
   getGroupAdmins,
