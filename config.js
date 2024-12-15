@@ -13,4 +13,5 @@ module.exports = {
     PREFIX: process.env.PREFIX || ".",
     ANTI_LINK: process.env.ANTI_LINK || "true",
     ANTI_BAD_WORD: process.env.ANTI_BAD_WORD || "true",
+    ANTI_DELETE: process.env.ANTI_DELETE || "true",
 };
