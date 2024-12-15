@@ -312,121 +312,49 @@ command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, i
 }});
 
 //================================
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const { getBuffer, getGroupAdmins, getRandom, sms } = require('./lib/functions');
-const config = require('./config');
-const ownerNumber = config.OWNER_NUMBER + "@s.whatsapp.net";
 
-// Ensure message data directory exists
-if (!fs.existsSync("message_data")) {
-    fs.mkdirSync("message_data");
-}
+//================ ANTI DELETE ================
 
-// Function to retrieve message data from file
-function getMessageData(fileName, folderName) {
-    const filePath = path.join("message_data", fileName, folderName + ".json");
-    try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(data) || [];
-    } catch (error) {
-        console.error(`Error reading file ${filePath}:`, error);
-        return [];
-    }
-}
+conn.ev.on('messages.delete', async (message) => {
+    if (config.ANTI_DELETE === "true" && message.remoteJid.endsWith('@g.us')) {
+        try {
+            // Load deleted message details
+            const deletedMessage = await conn.loadMessage(message.remoteJid, message.id);
+            if (deletedMessage) {
+                const deletedContent = deletedMessage.message;
 
-// Function to save message data to file
-function saveMessageData(fileName, folderName, data) {
-    const folderPath = path.join("message_data", fileName);
-    if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true });
-    }
-    const filePath = path.join(folderPath, folderName + ".json");
-    try {
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    } catch (error) {
-        console.error("Error saving chat data:", error);
-    }
-}
+                let notificationText = `🚨 Deleted Message Detected 🚨\n\n`;
+                notificationText += `From: ${deletedMessage.pushName || 'Unknown'} (@${deletedMessage.participant.split('@')[0] || 'Unknown'})\n`;
 
-// Function to handle received messages (e.g., message deletion)
-async function handleReceivedMessage(messageInfo, conn) {
-    const messageId = messageInfo.msg.key.id;
-    const messageData = getMessageData(messageId, messageId);
-    const previousMessage = messageData[0];
+                if (deletedContent) {
+                    if (deletedContent.conversation) {
+                        notificationText += `Message: ${deletedContent.conversation}`;
+                    } else if (deletedContent.extendedTextMessage) {
+                        notificationText += `Message: ${deletedContent.extendedTextMessage.text}`;
+                    } else if (deletedContent.imageMessage) {
+                        notificationText += `Message: [Image with caption: ${deletedContent.imageMessage.caption || 'No caption'}]`;
+                    } else if (deletedContent.videoMessage) {
+                        notificationText += `Message: [Video with caption: ${deletedContent.videoMessage.caption || 'No caption'}]`;
+                    } else {
+                        notificationText += `Message: [${Object.keys(deletedContent)[0]} message]`;
+                    }
+                } else {
+                    notificationText += `Message: [Unable to retrieve deleted content]`;
+                }
 
-    if (!previousMessage) return;
+                // Send notification to the chat where the message was deleted
+                await conn.sendMessage(message.remoteJid, { text: notificationText });
 
-    const senderNumber = messageInfo.sender.split('@')[0];
-    const participant = previousMessage.key.participant ?? messageInfo.sender;
-    const participantNumber = participant.split('@')[0];
-
-    // Check if message contains a specific link or condition
-    if (someCondition && (previousMessage.message?.conversation?.includes('chat.whatsapp.com') || previousMessage.message?.extendedTextMessage?.text?.includes('chat.whatsapp.com'))) {
-        return;
-    }
-
-    // Send a notification for deleted message
-    let messageContent = previousMessage.message?.conversation || previousMessage.message?.extendedTextMessage?.text || "Message deleted";
-
-    _0x57354e.sendMessage(ownerNumber, {
-        'text': `🚫 *This message was deleted !!*\n\n  🚮 *Deleted by:* _${senderNumber}_\n  📩 *Sent by:* _${participantNumber}_\n\n> 🔓 Message Text: \`\`\`${messageContent}\`\`\``
-    });
-}
-
-// Handle different types of messages and send notifications
-async function handleMediaMessage(type, previousMessage, senderNumber, participantNumber) {
-    const filePath = getRandom('');
-    const messageService = sms(_0x57354e, previousMessage);
-
-    try {
-        let fileBuffer = await messageService.download(filePath);
-        let fileType = require("file-type");
-        let fileExtension = await fileType.fromBuffer(fileBuffer);
-        await fs.promises.writeFile('./' + fileExtension.ext, fileBuffer);
-
-        let mediaContent = { caption: `🚫 *This message was deleted !!*\n\n  🚮 *Deleted by:* _${senderNumber}_\n  📩 *Sent by:* _${participantNumber}_\n` };
-
-        if (type === 'imageMessage') {
-            mediaContent.image = fs.readFileSync('./' + fileExtension.ext);
-        } else if (type === 'videoMessage') {
-            mediaContent.video = fs.readFileSync('./' + fileExtension.ext);
-        } else if (type === 'documentMessage') {
-            mediaContent.document = fs.readFileSync('./' + fileExtension.ext);
-            mediaContent.mimetype = previousMessage.message.documentMessage.mimetype;
-            mediaContent.fileName = previousMessage.message.documentMessage.fileName;
-        } else if (type === 'audioMessage') {
-            mediaContent.audio = fs.readFileSync('./' + fileExtension.ext);
-            mediaContent.mimetype = previousMessage.message.audioMessage.mimetype;
+                // If it's an image or video, send the media as well
+                if (deletedContent && (deletedContent.imageMessage || deletedContent.videoMessage)) {
+                    const mediaType = deletedContent.imageMessage ? 'image' : 'video';
+                    const mediaBuffer = await downloadMediaMessage(deletedMessage, 'buffer');
+                    await conn.sendMessage(message.remoteJid, { [mediaType]: mediaBuffer, caption: 'Deleted media' });
+                }
+            }
+        } catch (error) {
+            console.error('Error handling deleted message:', error);
         }
-
-        await _0x57354e.sendMessage(ownerNumber, mediaContent);
-    } catch (error) {
-        console.error("Error downloading media file:", error);
-    }
-}
-
-// Call handleReceivedMessage for all relevant events
-conn.ev.on('messages.upsert', async (mek) => {
-    const mekMessage = mek.messages[0];
-    if (!mekMessage || !mekMessage.message) return;
-
-    // Check for deleted or edited messages
-    const messageType = getContentType(mekMessage.message);
-    if (messageType === 'deletedMessage') {
-        await handleReceivedMessage(mekMessage, conn);
-    }
-
-    // Handle media messages if they exist
-    if (mekMessage.message.imageMessage) {
-        await handleMediaMessage('imageMessage', mekMessage, mek.key.fromMe, mek.key.remoteJid);
-    } else if (mekMessage.message.videoMessage) {
-        await handleMediaMessage('videoMessage', mekMessage, mek.key.fromMe, mek.key.remoteJid);
-    } else if (mekMessage.message.documentMessage) {
-        await handleMediaMessage('documentMessage', mekMessage, mek.key.fromMe, mek.key.remoteJid);
-    } else if (mekMessage.message.audioMessage) {
-        await handleMediaMessage('audioMessage', mekMessage, mek.key.fromMe, mek.key.remoteJid);
     }
 });
 
