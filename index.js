@@ -310,71 +310,7 @@ mek.type === "stickerMessage"
 ) {
 command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply})
 }});
-
-//===================================
-const fs = require('fs');
-
-// Save message function
-const saveMessage = (message) => {
-    const filePath = `./message_data/${message.key.id}.json`;
-    const dir = './message_data';
-
-    // Ensure the directory exists
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-
-    // Save the message to a file
-    fs.writeFileSync(filePath, JSON.stringify(message, null, 2), 'utf8');
-};
-
-// Retrieve saved message
-const getSavedMessage = (messageId) => {
-    const filePath = `./message_data/${messageId}.json`;
-
-    // Check if the file exists and return the content if it does
-    if (fs.existsSync(filePath)) {
-        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    }
-
-    return null;
-};
-
-// Messages Save Listener
-conn.ev.on('messages.upsert', async (m) => {
-    const message = m.messages[0];
-    if (message && !message.key.fromMe) {
-        try {
-            saveMessage(message);
-        } catch (error) {
-            console.error("Error saving message:", error);
-        }
-    }
-});
-
-// Messages Delete Listener
-conn.ev.on('messages.delete', async (m) => {
-    const messageId = m.keys[0]?.id;
-    const chatId = m.keys[0]?.remoteJid;
-
-    if (messageId && chatId) {
-        try {
-            const savedMessage = getSavedMessage(messageId);
-            if (savedMessage) {
-                const messageContent = savedMessage.message?.conversation || "[Non-text message]";
-
-                // Reply to the same chat where the message was deleted
-                await conn.sendMessage(chatId, {
-                    text: `🚫 *Message Deleted!*\n\n🔓 *Recovered Message:* ${messageContent}`
-                });
-            }
-        } catch (error) {
-            console.error("Error handling deleted message:", error);
-        }
-    }
-});
-//===================================
- 
+    
 })
 }
 app.get("/", (req, res) => {
