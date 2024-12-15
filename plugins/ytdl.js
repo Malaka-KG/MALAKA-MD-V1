@@ -13,12 +13,12 @@
     }
   }
 })(_0x5664, 661433);
-const config = require("../settings");
+const config = require("../config");
 const l = console.log;
 const {
   cmd,
   commands
-} = require("../lib/command");
+} = require("../command");
 const {
   ytmp3,
   ytmp4
