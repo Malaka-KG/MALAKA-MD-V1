@@ -88,7 +88,7 @@ function convertYouTubeLink(link) {
 // Command handler for downloading songs
 cmd({
   pattern: 'song',
-  alias: 'play21',
+  alias: 'play',
   desc: 'To download songs.',
   react: '🎵',
   category: 'download',
@@ -615,63 +615,33 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 
 //========ytmp3================
 
-
 cmd({
-  'pattern': "song8",
-  'desc': "Download songs",
-  'category': "download",
-  'filename': __filename
-}, async (_0x598c59, _0x5cfb10, _0x45ec05, {
-  from: _0x2c50f3,
-  quoted: _0x352d90,
-  body: _0x2dbac1,
-  isCmd: _0x25081b,
-  command: _0x262c54,
-  args: _0x21090d,
-  q: _0x7dd659,
-  isGroup: _0x2fe72f,
-  sender: _0x22a7e6,
-  senderNumber: _0x4c0b9f,
-  botNumber2: _0x2d4ce7,
-  botNumber: _0x4cd998,
-  pushname: _0x288489,
-  isMe: _0x3e52f3,
-  isOwner: _0x3eed6e,
-  groupMetadata: _0x2751bd,
-  groupName: _0x2a8ab9,
-  participants: _0x4d0d61,
-  groupAdmins: _0x2c00e0,
-  isBotAdmins: _0x572966,
-  isAdmins: _0x1759b1,
-  reply: _0x405eb4
-}) => {
+  pattern: "song8",
+  desc: "Download songs",
+  category: "download",
+  filename: __filename
+}, async (bot, message, args, context) => {
+  const { from, quoted, body, isCmd, command, args: commandArgs, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply } = context;
+
   try {
-    if (!_0x7dd659) {
-      return _0x405eb4("*_Please give me a title or url._*");
+    if (!q) {
+      return reply("*_Please give me a title or url._*");
     }
-    const _0x935c9f = await yts(_0x7dd659);
-    const _0x4c67e7 = _0x935c9f.videos[0x0];
-    if (!_0x4c67e7 || _0x4c67e7.length === 0x0) {
-      return _0x405eb4("*_Can't find anything._*");
+
+    const searchResults = await yts(q);
+    const video = searchResults.videos[0];
+
+    if (!video || video.length === 0) {
+      return reply("*_Can't find anything._*");
     }
-    let _0x450f4e = await _0x598c59.sendMessage(_0x2c50f3, {
-      'text': _0x4c67e7.title + " *_is downloading..._*"
-    }, {
-      'quoted': _0x5cfb10
-    });
-    let _0x17a897 = await fetchJson("https://www.dark-yasiya-api.site/download/ytmp3?url=" + _0x4c67e7.url);
-    await _0x598c59.sendMessage(_0x2c50f3, {
-      'audio': {
-        'url': _0x17a897.result.dl_link
-      },
-      'mimetype': "audio/mpeg"
-    }, {
-      'quoted': _0x450f4e
-    });
-  } catch (_0x264a37) {
-    console.log(_0x264a37);
-    _0x405eb4('' + _0x264a37);
+
+    let downloadMessage = await bot.sendMessage(from, { text: video.title + " *_is downloading..._*" }, { quoted: quoted });
+
+    let downloadLinkData = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    await bot.sendMessage(from, { audio: { url: downloadLinkData.result.dl_link }, mimetype: "audio/mpeg" }, { quoted: downloadMessage });
+
+  } catch (error) {
+    console.log(error);
+    reply(`${error}`);
   }
 });
-
-
