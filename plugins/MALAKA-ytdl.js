@@ -620,56 +620,68 @@ cmd({
   desc: "Download songs",
   category: "download",
   filename: __filename
-}, async (_context, message, options, {
-  from,
-  quoted,
-  body,
-  isCmd,
-  command,
-  args,
-  q,
-  isGroup,
-  sender,
-  senderNumber,
-  botNumber2,
-  botNumber,
-  pushname,
-  isMe,
-  isOwner,
-  groupMetadata,
-  groupName,
-  participants,
-  groupAdmins,
-  isBotAdmins,
-  isAdmins,
-  reply
-}) => {
+}, async (
+  botInstance, 
+  message, 
+  client, 
+  {
+    from,
+    quoted,
+    body,
+    isCmd,
+    command,
+    args,
+    q, // Query (song title or URL)
+    isGroup,
+    sender,
+    senderNumber,
+    botNumber2,
+    botNumber,
+    pushname,
+    isMe,
+    isOwner,
+    groupMetadata,
+    groupName,
+    participants,
+    groupAdmins,
+    isBotAdmins,
+    isAdmins,
+    reply
+  }
+) => {
   try {
+    // Check if the user provided a title or URL
     if (!q) {
       return reply("*_Please give me a title or URL._*");
     }
 
-    const searchResults = await yts(q);
-    const video = searchResults.videos[0];
+    // Perform a YouTube search using the provided query
+    const searchResults = await yts(q); // `yts` is assumed to be a YouTube search function
+    const video = searchResults.videos[0]; // Get the first video result
 
+    // Handle case where no results are found
     if (!video || video.length === 0) {
       return reply("*_Can't find anything._*");
     }
 
-    let statusMessage = await _context.sendMessage(from, {
+    // Notify the user that the song is downloading
+    let downloadMessage = await botInstance.sendMessage(from, {
       text: `${video.title} *_is downloading..._*`
     }, {
       quoted: message
     });
 
+    // Fetch the download link from the API
     let downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
-    await _context.sendMessage(from, {
+
+    // Send the downloaded audio file to the user
+    await botInstance.sendMessage(from, {
       audio: {
         url: downloadResponse.result.dl_link
       },
       mimetype: "audio/mpeg"
     }, {
-      quoted: statusMessage
+      quoted: downloadMessage
     });
   } catch (error) {
     console.log(error);
