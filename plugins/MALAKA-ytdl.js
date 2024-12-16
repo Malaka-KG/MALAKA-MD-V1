@@ -616,68 +616,61 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 //========ytmp3================
 
 cmd({
-  pattern: "song8",
+  pattern: "song",
   desc: "Download songs",
   category: "download",
   filename: __filename
-}, async (client, message, args, {
-  from,
-  quoted,
-  body,
-  isCmd,
-  command,
-  argsArray,
-  query,
-  isGroup,
-  sender,
-  senderNumber,
-  botNumber2,
-  botNumber,
-  pushname,
-  isMe,
-  isOwner,
-  groupMetadata,
-  groupName,
-  participants,
-  groupAdmins,
-  isBotAdmins,
-  isAdmins,
-  reply
-}) => {
+}, async (bot, message, options, context) => {
+  const {
+    from,
+    quoted,
+    body,
+    isCmd,
+    command,
+    args,
+    q,
+    isGroup,
+    sender,
+    senderNumber,
+    botNumber2,
+    botNumber,
+    pushname,
+    isMe,
+    isOwner,
+    groupMetadata,
+    groupName,
+    participants,
+    groupAdmins,
+    isBotAdmins,
+    isAdmins,
+    reply
+  } = context;
+
   try {
-    // Check if a query (title or URL) is provided
-    if (!query) {
-      return reply("*_Please provide a title or URL._*");
+    if (!q) {
+      return reply("*_Please give me a title or url._*");
     }
 
-    // Search for the song using YouTube Search (yts)
-    const searchResults = await yts(query);
+    const searchResults = await yts(q);
     const video = searchResults.videos[0];
-
-    // If no video is found, send an error message
-    if (!video || video.length === 0) {
+    
+    if (!video) {
       return reply("*_Can't find anything._*");
     }
 
-    // Notify the user that the song is downloading
-    let downloadingMessage = await client.sendMessage(from, {
+    const downloadingMessage = await bot.sendMessage(from, {
       text: `${video.title} *_is downloading..._*`
     }, { quoted: message });
 
-    // Fetch the download link from the API
-    let downloadData = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
-
-    // Send the downloaded audio back to the user
-    await client.sendMessage(from, {
-      audio: {
-        url: downloadData.result.dl_link
-      },
+    const downloadInfo = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    
+    await bot.sendMessage(from, {
+      audio: { url: downloadInfo.result.dl_link },
       mimetype: "audio/mpeg"
     }, { quoted: downloadingMessage });
 
   } catch (error) {
-    // Log and send an error message if something goes wrong
-    console.log(error);
-    reply(`${error}`);
+    console.error(error);
+    reply(`Error: ${error}`);
   }
 });
