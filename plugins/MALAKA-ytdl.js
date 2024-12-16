@@ -616,7 +616,7 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 //========ytmp3================
 
 cmd({
-  pattern: "song",
+  pattern: "song8",
   desc: "Download songs",
   category: "download",
   filename: __filename
