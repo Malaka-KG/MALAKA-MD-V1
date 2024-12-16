@@ -616,61 +616,61 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 //========ytmp3================
 
 cmd({
-  pattern: "song",
+  pattern: "song8",
   desc: "Download songs",
   category: "download",
   filename: __filename
-}, async (bot, message, options, context) => {
-  const {
-    from,
-    quoted,
-    body,
-    isCmd,
-    command,
-    args,
-    q,
-    isGroup,
-    sender,
-    senderNumber,
-    botNumber2,
-    botNumber,
-    pushname,
-    isMe,
-    isOwner,
-    groupMetadata,
-    groupName,
-    participants,
-    groupAdmins,
-    isBotAdmins,
-    isAdmins,
-    reply
-  } = context;
-
+}, async (message, metadata, options, {
+  from,
+  quoted,
+  body,
+  isCmd,
+  command,
+  args,
+  q,
+  isGroup,
+  sender,
+  senderNumber,
+  botNumber2,
+  botNumber,
+  pushname,
+  isMe,
+  isOwner,
+  groupMetadata,
+  groupName,
+  participants,
+  groupAdmins,
+  isBotAdmins,
+  isAdmins,
+  reply
+}) => {
   try {
     if (!q) {
       return reply("*_Please give me a title or url._*");
     }
 
-    const searchResults = await yts(q);
-    const video = searchResults.videos[0];
-    
-    if (!video) {
+    const searchResult = await yts(q); // YouTube search
+    const video = searchResult.videos[0];
+
+    if (!video || video.length === 0) {
       return reply("*_Can't find anything._*");
     }
 
-    const downloadingMessage = await bot.sendMessage(from, {
+    let statusMessage = await message.sendMessage(from, {
       text: `${video.title} *_is downloading..._*`
-    }, { quoted: message });
+    }, { quoted: metadata });
 
-    const downloadInfo = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    let downloadData = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
     
-    await bot.sendMessage(from, {
-      audio: { url: downloadInfo.result.dl_link },
+    await message.sendMessage(from, {
+      audio: {
+        url: downloadData.result.dl_link
+      },
       mimetype: "audio/mpeg"
-    }, { quoted: downloadingMessage });
+    }, { quoted: statusMessage });
 
   } catch (error) {
-    console.error(error);
+    console.log(error);
     reply(`Error: ${error}`);
   }
 });
