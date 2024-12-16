@@ -3,6 +3,10 @@ const fg = require('api-dylux')
 const yts = require("yt-search");
 const { fetchJson } = require("../lib/functions");
 const axios = require("axios");
+const {
+  ytmp3,
+  ytmp4
+} = require("../lib/ytdl");
 
 // YouTube MP4 download function
 async function ytmp4(url, format) {
