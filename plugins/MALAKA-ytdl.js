@@ -620,18 +620,15 @@ cmd({
   desc: "Download songs",
   category: "download",
   filename: __filename
-}, async (
-  botInstance, 
-  message, 
-  client, 
-  {
+}, async (bot, message, args, context) => {
+  const {
     from,
     quoted,
     body,
     isCmd,
     command,
-    args,
-    q, // Query (song title or URL)
+    args: commandArgs,
+    q: query,
     isGroup,
     sender,
     senderNumber,
@@ -647,42 +644,32 @@ cmd({
     isBotAdmins,
     isAdmins,
     reply
-  }
-) => {
+  } = context;
+
   try {
-    // Check if the user provided a title or URL
-    if (!q) {
-      return reply("*_Please give me a title or URL._*");
+    if (!query) {
+      return reply("*_Please provide a title or URL._*");
     }
 
-    // Perform a YouTube search using the provided query
-    const searchResults = await yts(q); // `yts` is assumed to be a YouTube search function
-    const video = searchResults.videos[0]; // Get the first video result
+    const searchResults = await yts(query);
+    const firstVideo = searchResults.videos[0];
 
-    // Handle case where no results are found
-    if (!video || video.length === 0) {
+    if (!firstVideo) {
       return reply("*_Can't find anything._*");
     }
 
-    // Notify the user that the song is downloading
-    let downloadMessage = await botInstance.sendMessage(from, {
-      text: `${video.title} *_is downloading..._*`
-    }, {
-      quoted: message
-    });
+    const downloadingMessage = await bot.sendMessage(from, {
+      text: `${firstVideo.title} *_is downloading..._*`
+    }, { quoted: message });
 
-    // Fetch the download link from the API
-    let downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    const downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${firstVideo.url}`);
+    const downloadLink = downloadResponse.result.dl_link;
 
-    // Send the downloaded audio file to the user
-    await botInstance.sendMessage(from, {
-      audio: {
-        url: downloadResponse.result.dl_link
-      },
+    await bot.sendMessage(from, {
+      audio: { url: downloadLink },
       mimetype: "audio/mpeg"
-    }, {
-      quoted: downloadMessage
-    });
+    }, { quoted: downloadingMessage });
+
   } catch (error) {
     console.log(error);
     reply(`${error}`);
