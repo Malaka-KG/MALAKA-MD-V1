@@ -611,3 +611,72 @@ cmd(videoCommand, async (bot, message, chat, context) => {
     reply("An error occurred while processing your request.");
   }
 });
+
+const commandOptions = {
+  pattern: "ytmp3",
+  dontAddCommandList: true,
+  filename: __filename
+};
+
+cmd(commandOptions, async (messageService, message, commandArgs, { from, q, reply }) => {
+  try {
+    // Send initial reaction
+    const initialReaction = {
+      text: '📥',
+      key: message.key
+    };
+    const initialReactionPayload = {
+      react: initialReaction
+    };
+    await messageService.sendMessage(from, initialReactionPayload);
+
+    // Check if a link is provided
+    const needLinkMessage = {
+      text: "*Need link...*"
+    };
+    const quotedMessage = {
+      quoted: message
+    };
+    if (!q) {
+      return await messageService.sendMessage(from, needLinkMessage, quotedMessage);
+    }
+
+    // Get audio download link
+    let audioData = await fg.yta(q);
+    const audioPayload = {
+      url: audioData.dl_url
+    };
+    const audioMessageOptions = {
+      quoted: message
+    };
+    let audioMessage = await messageService.sendMessage(from, {
+      'audio': audioPayload,
+      'mimetype': "audio/mpeg",
+      'fileName': audioData.title + '.' + "mp3"
+    }, audioMessageOptions);
+
+    // Send reaction after audio message
+    const fileReaction = {
+      text: '📁',
+      key: audioMessage.key
+    };
+    const fileReactionPayload = {
+      react: fileReaction
+    };
+    await messageService.sendMessage(from, fileReactionPayload);
+
+    // Send final reaction
+    const finalReaction = {
+      text: '✔',
+      key: message.key
+    };
+    const finalReactionPayload = {
+      react: finalReaction
+    };
+    await messageService.sendMessage(from, finalReactionPayload);
+
+  } catch (error) {
+    reply("*ERROR !!*");
+    console.error(error);
+  }
+});
