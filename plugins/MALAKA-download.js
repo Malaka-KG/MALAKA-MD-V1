@@ -51,7 +51,7 @@ cmd({
         const selectedNumber = parseInt(userMessage.trim());
         if (!isNaN(selectedNumber) && selectedNumber > 0 && selectedNumber <= limitedResults.length) {
           const selectedMovie = limitedResults[selectedNumber - 1];
-          const apiUrl = `https://www.dark-yasiya-api.site/movie/sinhalasub/movie?url=${encodeURIComponent(selectedMovie.link)}`;
+          const apiUrl = `https://api-site-2.vercel.app/api/sinhalasub/movie?url=${encodeURIComponent(selectedMovie.link)}`;
 
           try {
             const movieDetails = await axios.get(apiUrl);
