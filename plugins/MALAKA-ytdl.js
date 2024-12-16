@@ -675,3 +675,65 @@ cmd({
     reply(`${error}`);
   }
 });
+
+//======ytmp4===============
+
+cmd({
+  'pattern': 'video8',
+  'desc': "Download videos",
+  'category': "download",
+  'filename': __filename
+}, async (_0xa03597, _0x3b9e90, _0x558970, {
+  from: _0x4cf26e,
+  quoted: _0x1e6782,
+  body: _0x528a25,
+  isCmd: _0x286596,
+  command: _0x31bd2a,
+  args: _0x533ee2,
+  q: _0x1492e7,
+  isGroup: _0x812751,
+  sender: _0x595c19,
+  senderNumber: _0x172625,
+  botNumber2: _0x2db7d8,
+  botNumber: _0x5a69b1,
+  pushname: _0x554349,
+  isMe: _0x18f0c2,
+  isOwner: _0x2f155e,
+  groupMetadata: _0x1e7a9f,
+  groupName: _0xf0ceb8,
+  participants: _0x4ad7ea,
+  groupAdmins: _0x1621a4,
+  isBotAdmins: _0x5a4576,
+  isAdmins: _0xb8ce10,
+  reply: _0x25157b
+}) => {
+  try {
+    if (!_0x1492e7) {
+      return _0x25157b("*_Please give me a title or url._*");
+    }
+    const _0x2aa27c = await yts(_0x1492e7);
+    const _0x3e4b08 = _0x2aa27c.videos[0x0];
+    if (!_0x3e4b08 || _0x3e4b08.length === 0x0) {
+      return _0x25157b("*_Can't find anything._*");
+    }
+    let _0x5e04a2 = await _0xa03597.sendMessage(_0x4cf26e, {
+      'text': _0x3e4b08.title + " *_is downloading..._*"
+    }, {
+      'quoted': _0x3b9e90
+    });
+    let _0x39931a = await fetchJson('https://www.dark-yasiya-api.site/download/ytmp4?url=' + _0x3e4b08.url);
+    await _0xa03597.sendMessage(_0x4cf26e, {
+      'video': {
+        'url': _0x39931a.result.dl_link
+      },
+      'mimetype': "video/mp4"
+    }, {
+      'quoted': _0x5e04a2
+    });
+  } catch (_0x240ad9) {
+    console.log(_0x240ad9);
+    _0x25157b('' + _0x240ad9);
+  }
+});
+
+
