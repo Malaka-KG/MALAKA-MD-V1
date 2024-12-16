@@ -616,11 +616,11 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 //========ytmp3================
 
 cmd({
-  pattern: "song8",
+  pattern: "song",
   desc: "Download songs",
   category: "download",
   filename: __filename
-}, async (message, metadata, options, {
+}, async (_context, message, options, {
   from,
   quoted,
   body,
@@ -646,31 +646,33 @@ cmd({
 }) => {
   try {
     if (!q) {
-      return reply("*_Please give me a title or url._*");
+      return reply("*_Please give me a title or URL._*");
     }
 
-    const searchResult = await yts(q); // YouTube search
-    const video = searchResult.videos[0];
+    const searchResults = await yts(q);
+    const video = searchResults.videos[0];
 
     if (!video || video.length === 0) {
       return reply("*_Can't find anything._*");
     }
 
-    let statusMessage = await message.sendMessage(from, {
+    let statusMessage = await _context.sendMessage(from, {
       text: `${video.title} *_is downloading..._*`
-    }, { quoted: metadata });
+    }, {
+      quoted: message
+    });
 
-    let downloadData = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
-    
-    await message.sendMessage(from, {
+    let downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    await _context.sendMessage(from, {
       audio: {
-        url: downloadData.result.dl_link
+        url: downloadResponse.result.dl_link
       },
       mimetype: "audio/mpeg"
-    }, { quoted: statusMessage });
-
+    }, {
+      quoted: statusMessage
+    });
   } catch (error) {
     console.log(error);
-    reply(`Error: ${error}`);
+    reply(`${error}`);
   }
 });
