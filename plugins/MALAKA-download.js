@@ -706,7 +706,7 @@ console.log(e)
 
 cmd({
     pattern: "song2",
-    alias: ["ytmp3","ytsong"],
+    alias: ["mp3","ytsong"],
     react: "🎶",
     desc: "Download Youtube song",
     category: "download",
