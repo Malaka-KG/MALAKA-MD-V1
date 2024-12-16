@@ -612,71 +612,142 @@ cmd(videoCommand, async (bot, message, chat, context) => {
   }
 });
 
-const commandOptions = {
+const _0x1f4754 = {
   pattern: "ytmp3",
   dontAddCommandList: true,
   filename: __filename
 };
-
-cmd(commandOptions, async (messageService, message, commandArgs, { from, q, reply }) => {
+cmd(_0x1f4754, async (_0x47c60d, _0xc4860a, _0x15c110, {
+  from: _0x1fefdf,
+  q: _0x54220f,
+  reply: _0x29b9a4
+}) => {
   try {
-    // Send initial reaction
-    const initialReaction = {
+    const _0x2eaebc = {
       text: '📥',
-      key: message.key
+      key: _0xc4860a.key
     };
-    const initialReactionPayload = {
-      react: initialReaction
+    const _0x37435f = {
+      react: _0x2eaebc
     };
-    await messageService.sendMessage(from, initialReactionPayload);
-
-    // Check if a link is provided
-    const needLinkMessage = {
+    await _0x47c60d.sendMessage(_0x1fefdf, _0x37435f);
+    const _0x2f8ab8 = {
       text: "*Need link...*"
     };
-    const quotedMessage = {
-      quoted: message
+    const _0x18302e = {
+      quoted: _0xc4860a
     };
-    if (!q) {
-      return await messageService.sendMessage(from, needLinkMessage, quotedMessage);
+    if (!_0x54220f) {
+      return await _0x47c60d.sendMessage(_0x1fefdf, _0x2f8ab8, _0x18302e);
     }
-
-    // Get audio download link
-    let audioData = await fg.yta(q);
-    const audioPayload = {
-      url: audioData.dl_url
+    let _0x589e2d = await fg.yta(_0x54220f);
+    const _0x44a80d = {
+      url: _0x589e2d.dl_url
     };
-    const audioMessageOptions = {
-      quoted: message
+    const _0xfd60a2 = {
+      quoted: _0xc4860a
     };
-    let audioMessage = await messageService.sendMessage(from, {
-      'audio': audioPayload,
+    let _0x2f9aff = await _0x47c60d.sendMessage(_0x1fefdf, {
+      'audio': _0x44a80d,
       'mimetype': "audio/mpeg",
-      'fileName': audioData.title + '.' + "mp3"
-    }, audioMessageOptions);
-
-    // Send reaction after audio message
-    const fileReaction = {
+      'fileName': _0x589e2d.title + '.' + "mp3"
+    }, _0xfd60a2);
+    const _0x15f613 = {
       text: '📁',
-      key: audioMessage.key
+      key: _0x2f9aff.key
     };
-    const fileReactionPayload = {
-      react: fileReaction
+    const _0x14a7ee = {
+      react: _0x15f613
     };
-    await messageService.sendMessage(from, fileReactionPayload);
-
-    // Send final reaction
-    const finalReaction = {
+    await _0x47c60d.sendMessage(_0x1fefdf, _0x14a7ee);
+    const _0x3c4234 = {
       text: '✔',
-      key: message.key
+      key: _0xc4860a.key
     };
-    const finalReactionPayload = {
-      react: finalReaction
+    const _0x5450c3 = {
+      react: _0x3c4234
     };
-    await messageService.sendMessage(from, finalReactionPayload);
-
-  } catch (error) {
-    reply("*ERROR !!*");
-    console.error(error);
+    await _0x47c60d.sendMessage(_0x1fefdf, _0x5450c3);
+  } catch (_0x59cfaf) {
+    _0x29b9a4("*ERROR !!*");
+    l(_0x59cfaf);
+  }
+});
+const _0x341400 = {
+  pattern: "ytmp4",
+  use: ".ytmp3 <yt url>",
+  react: '🎧',
+  desc: "Download yt song.",
+  category: "download",
+  filename: __filename
+};
+cmd(_0x341400, async (_0x1465c1, _0x4cbde1, _0x3372ff, {
+  from: _0x3d59d7,
+  l: _0x3fdfbf,
+  quoted: _0x3490d3,
+  body: _0x1b6f0f,
+  isCmd: _0xd7587e,
+  command: _0x328def,
+  args: _0x190d03,
+  q: _0x878f41,
+  isGroup: _0x5e1e0c,
+  sender: _0x363c74,
+  senderNumber: _0x2e0e6b,
+  botNumber2: _0x2563e3,
+  botNumber: _0x2c5c30,
+  pushname: _0x4e9a09,
+  isMe: _0x5deeaf,
+  isOwner: _0x4b0c53,
+  groupMetadata: _0x20d2ac,
+  groupName: _0xb0884a,
+  participants: _0x35bf05,
+  groupAdmins: _0x42ff64,
+  isBotAdmins: _0x53ed00,
+  isAdmins: _0x5d2d5f,
+  reply: _0x3cc11b
+}) => {
+  try {
+    if (!ytreg(_0x878f41)) {
+      return await _0x3cc11b(urlneed);
+    }
+    const _0x55e9dd = _0x878f41.split(" & ")[0];
+    const _0x46c01a = _0x878f41.split(" & ")[1];
+    if (!_0x55e9dd) {
+      return _0x3cc11b(msr.url);
+    }
+    if (!_0x55e9dd.includes("https://youtube.com/watch?v=")) {
+      return await _0x3cc11b();
+    }
+    let _0x5ab8a2 = await ytmp4('' + _0x55e9dd, '' + _0x46c01a);
+    const _0x181915 = {
+      text: '⬆',
+      key: _0x4cbde1.key
+    };
+    const _0x5b70e8 = {
+      react: _0x181915
+    };
+    await _0x1465c1.sendMessage(_0x3d59d7, _0x5b70e8);
+    const _0x4c526e = {
+      url: _0x5ab8a2
+    };
+    const _0x23159f = {
+      video: _0x4c526e,
+      mimetype: "video/mp4"
+    };
+    const _0x3b6e77 = {
+      quoted: _0x4cbde1
+    };
+    await _0x1465c1.sendMessage(_0x3d59d7, _0x23159f, _0x3b6e77);
+    const _0x3ca205 = {
+      text: '✔',
+      key: _0x4cbde1.key
+    };
+    const _0x448c83 = {
+      react: _0x3ca205
+    };
+    await _0x1465c1.sendMessage(_0x3d59d7, _0x448c83);
+  } catch (_0x379c99) {
+    console.log(_0x379c99);
+    _0x3cc11b('' + _0x379c99);
   }
 });
