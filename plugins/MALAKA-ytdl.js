@@ -624,24 +624,37 @@ cmd({
   const { from, quoted, body, isCmd, command, args: commandArgs, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply } = context;
 
   try {
-    if (!q) {
+    // Check if query is provided
+    if (!query) {
       return reply("*_Please give me a title or url._*");
     }
 
-    const searchResults = await yts(q);
-    const video = searchResults.videos[0];
+    // Search for videos using YouTube search
+    const searchResults = await yts(query);
+    const video = searchResults.videos[0]; // Take the first video result
 
+    // If no results found
     if (!video || video.length === 0) {
       return reply("*_Can't find anything._*");
     }
 
-    let downloadMessage = await bot.sendMessage(from, { text: video.title + " *_is downloading..._*" }, { quoted: quoted });
+    // Notify user that download is starting
+    let downloadingMessage = await bot.sendMessage(from, {
+      text: `${video.title} *_is downloading..._*`
+    }, { quoted: message });
 
-    let downloadLinkData = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
-    await bot.sendMessage(from, { audio: { url: downloadLinkData.result.dl_link }, mimetype: "audio/mpeg" }, { quoted: downloadMessage });
+    // Fetch download link using external API
+    const downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${video.url}`);
+    const downloadLink = downloadResponse.result.dl_link;
+
+    // Send the audio file to the user
+    await bot.sendMessage(from, {
+      audio: { url: downloadLink },
+      mimetype: "audio/mpeg"
+    }, { quoted: downloadingMessage });
 
   } catch (error) {
-    console.log(error);
-    reply(`${error}`);
+    console.error(error);
+    reply(`Error: ${error.message}`);
   }
 });
