@@ -32,13 +32,13 @@ const prefix = config.PREFIX
 const ownerNumber = ['94704243771']
 
 //===================SESSION-AUTH============================
-if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
+if (!fs.existsSync(__dirname + '/session/creds.json')) {
 if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
 const sessdata = config.SESSION_ID
 const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
 filer.download((err, data) => {
 if(err) throw err
-fs.writeFile(__dirname + '/auth_info_baileys/creds.json', data, () => {
+fs.writeFile(__dirname + '/session/creds.json', data, () => {
 console.log("SESSION DOWNLOADED COMPLETED ✅")
 })})}
 
@@ -49,8 +49,8 @@ const port = process.env.PORT || 9090;
 //=============================================
 
 async function connectToWA() {
-console.log("CONNECTING SILENT-SOBX-MD BOT🧬...");
-const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
+console.log("CONNECTING MALAKA-MD-V1 BOT 👩‍💻...");
+const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/session/')
 var { version } = await fetchLatestBaileysVersion()
 
 const conn = makeWASocket({
@@ -90,10 +90,10 @@ let up = `*╭──────────────●●►*
 
 *https://youtube.com/@silentlover432?si=n3pYYLvSFLP7Shj7*
 
-*╭⊱✫🔮 SILENT-SOBX-MD 🔮✫⊱╮*
+*╭⊱✫🔮 MALAKA-MD-V1 🔮✫⊱╮*
 *│✫➠ - 📂REPOSITORY NAME:* *SILENT-SOBX-MD*
 *│✫➠ - 📃DESCRIPTION:* *THE WORLD BEST WHATSAPP BOT♻️*
-*│✫➠ - 🛡️OWNER:* *SILENT LOVER⁴³²*
+*│✫➠ - 🛡️OWNER:* *MALAKA-MD-V1⁴³²*
 *│✫➠ - 🌐URL:* *https://github.com/SILENTLOVER40/SILENT-SOBX-MD*
 
 *YOUR BOT ACTIVE NOW ENJOY♥️🪄*\n\n*PREFIX: ${prefix}*
