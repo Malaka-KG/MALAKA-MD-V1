@@ -1,6 +1,4 @@
 const { fetchJson } = require("../lib/functions");
-const { downloadTiktok } = require('@mrnima/tiktok-downloader');
-const { facebook } = require("@mrnima/facebook-downloader");
 const cheerio = require("cheerio");
 const { igdl } = require("ruhend-scraper");
 const axios = require('axios');
@@ -9,6 +7,7 @@ const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js'); // request 
 const apilink = 'https://www.dark-yasiya-api.site' // API LINK ( DO NOT CHANGE THIS!! )
 const apkdl = require('../lib/apkdl')
 
+const { facebook } = require("@mrnima/facebook-downloader");
 
 cmd({
   pattern: 'fb',
@@ -107,6 +106,8 @@ cmd({
     reply("An error occurred while processing your request. Please try again.");
   }
 });
+
+const { downloadTiktok } = require('@mrnima/tiktok-downloader');
 
 cmd({
   pattern: "tiktok",
