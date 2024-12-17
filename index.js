@@ -29,21 +29,18 @@ const Crypto = require('crypto')
 const path = require('path')
 const prefix = config.PREFIX
 
-const ownerNumber = config.OWNER_NUMBER
+const ownerNumber = ['94704243771']
 
 //===================SESSION-AUTH============================
-if (!fs.existsSync(__dirname + '/session/creds.json')) {
-    if (config.SESSION_ID) {
-      const sessdata = config.SESSION_ID
-      const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
-      filer.download((err, data) => {
-        if (err) throw err
-        fs.writeFile(__dirname + '/session/creds.json', data, () => {
-          console.log("Session download completed !!")
-        })
-      })
-    }
-  }
+if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
+if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
+const sessdata = config.SESSION_ID
+const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
+filer.download((err, data) => {
+if(err) throw err
+fs.writeFile(__dirname + '/auth_info_baileys/creds.json', data, () => {
+console.log("SESSION DOWNLOADED COMPLETED ✅")
+})})}
 
 const express = require("express");
 const app = express();
@@ -52,16 +49,8 @@ const port = process.env.PORT || 9090;
 //=============================================
 
 async function connectToWA() {
-//===========connect mongodb===================
-const connectDB = require('./lib/mongodb')
-connectDB();
-//==============================================
-const {readEnv} = require('./lib/database')   
-const config = await readEnv();
-//==============================================
-    
-console.log("CONNECTING MALAKA-MD-V1 BOT💮...");
-const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/session/')
+console.log("CONNECTING SILENT-SOBX-MD BOT🧬...");
+const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
 var { version } = await fetchLatestBaileysVersion()
 
 const conn = makeWASocket({
@@ -90,30 +79,27 @@ require("./plugins/" + plugin);
 console.log('PLUGINS FILES INSTALL SUCCESSFULLY ✅')
 console.log('MALAKA-MD-V1 CONNECTED TO WHATSAPP ENJOY ✅')
 
-let up = `
-*[ •  MALAKA-MD-V1 - STARTED‎ • ]*
-*╭┈───────────────•*
-*│  ◦* *_Congratulations Your Bot Active Successfully_*
-*│  ◦*
-*│  ◦* *❁ ᴊᴏɪɴ ᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ ᴄʜᴀɴɴᴇʟ ❁*
-*│  ◦*
-*│  ◦* *https://chat.whatsapp.com/Du535D1FTTx8Opga7loxDN*
-*│  ◦*
-*│  ◦* *❁ ᴊᴏɪɴ ᴏᴜʀ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ ❁*
-*│  ◦*
-*│  ◦* *https://youtube.com/@cm_modz?si=fnLONnCxr3Tv2HVE*
-*╰┈───────────────•*
-*[ •  B O T  - R E P O ‎ • ]*
-*╭┈───────────────•*
-*│✫➠ - 🌐URL:* *https://github.com/SILENTLOVER40/SILENT-SOBX-MD*
-*╰┈───────────────•*
-*YOUR BOT ACTIVE NOW ENJOY♥️🪄*\n\n*PREFIX: [${prefix}]*
+let up = `*╭──────────────●●►*
+> *➺sɪʟᴇɴᴛ-sᴏʙx-ᴍᴅ ᴄᴏɴɴᴇᴄᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʏ ᴛʏᴘᴇ .ᴍᴇɴᴜ ᴛᴏ ᴄᴏᴍᴍᴀɴᴅ ʟɪsᴛ ᴄʀᴇᴀᴛᴇᴅ ʙʏ sɪʟᴇɴᴛ ʟᴏᴠᴇʀ⁴³²✅*
 
-*•────────────•⟢*
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ⁴³²
-*•────────────•⟢*
-`;
-conn.sendMessage(conn.user.id, { image: { url: `https://i.ibb.co/PwTkwNQ/20241209-212640.jpg` }, caption: up })
+> *❁ᴊᴏɪɴ ᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ ᴄʜᴀɴɴᴇʟ ғᴏʀ ᴜᴘᴅᴀᴛᴇs sɪʟᴇɴᴛ-sᴏʙx-ᴍᴅ❁*
+
+*https://whatsapp.com/channel/0029VaHO5B0G3R3cWkZN970s*
+
+> *❁ᴊᴏɪɴ ᴏᴜʀ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ ғᴏʀ ᴜᴘᴅᴀᴛᴇs sɪʟᴇɴᴛ-sᴏʙx-ᴍᴅ❁*
+
+*https://youtube.com/@silentlover432?si=n3pYYLvSFLP7Shj7*
+
+*╭⊱✫🔮 SILENT-SOBX-MD 🔮✫⊱╮*
+*│✫➠ - 📂REPOSITORY NAME:* *SILENT-SOBX-MD*
+*│✫➠ - 📃DESCRIPTION:* *THE WORLD BEST WHATSAPP BOT♻️*
+*│✫➠ - 🛡️OWNER:* *SILENT LOVER⁴³²*
+*│✫➠ - 🌐URL:* *https://github.com/SILENTLOVER40/SILENT-SOBX-MD*
+
+*YOUR BOT ACTIVE NOW ENJOY♥️🪄*\n\n*PREFIX: ${prefix}*
+
+*╰──────────────●●►*`;
+conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/h5ddpq.jpg` }, caption: up })
 
 }
 })
@@ -178,49 +164,15 @@ conn.sendFileUrl = async (jid, url, caption, quoted, options = {}) => {
                 return conn.sendMessage(jid, { audio: await getBuffer(url), caption: caption, mimetype: 'audio/mpeg', ...options }, { quoted: quoted, ...options })
               }
             }
-//AUto Read Function By @Um4r719
-conn.ev.on('messages.upsert', async (mek) => {
-    try {
-        mek = mek.messages[0];
-        if (!mek.message) return;
-
-        // Handle ephemeral messages
-        mek.message = (getContentType(mek.message) === 'ephemeralMessage') 
-            ? mek.message.ephemeralMessage.message 
-            : mek.message;
-
-        // Auto-read functionality
-        if (config.READ_MESSAGE === 'true') {
-            await conn.readMessages([mek.key]);  // Mark message as read
-            console.log(`Marked message from ${mek.key.remoteJid} as read.`);
-        }
-
-        // Continue with your existing message processing logic here...
-        const m = sms(conn, mek);
-        const type = getContentType(mek.message);
-        const content = JSON.stringify(mek.message);
-        const from = mek.key.remoteJid;
-        const isGroup = from.endsWith('@g.us');
-        const sender = mek.key.fromMe 
-            ? conn.user.id.split(':')[0] + '@s.whatsapp.net' 
-            : mek.key.participant || mek.key.remoteJid;
-
-        // More code...
-    } catch (err) {
-        console.error('Error in message handler:', err);
-    }
-});
-
-
         
 //================ownerreact==============
-if(senderNumber.includes("94704243771")){
+if(senderNumber.includes("923096287432")){
 if(isReact) return
-m.react("👩‍💻")
+m.react("👑")
 }
-if(senderNumber.includes("94742287793")){
+if(senderNumber.includes("923154647639")){
 if(isReact) return
-m.react("👩🏼‍💻")
+m.react("👑")
 }
 if(senderNumber.includes("923251869133")){
 if(isReact) return
@@ -310,11 +262,11 @@ mek.type === "stickerMessage"
 ) {
 command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply})
 }});
-    
+
 })
 }
 app.get("/", (req, res) => {
-res.send("HEY, MALAKA-MD-V1 STARTED ✅");
+res.send("HEY, MALAKA-MD-V1 STARTED 📟");
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 setTimeout(() => {
