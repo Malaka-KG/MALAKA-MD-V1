@@ -6,7 +6,7 @@ const { igdl } = require("ruhend-scraper");
 const axios = require('axios');
 const { cmd, commands } = require("../command");
 const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js'); // request package.json "@dark-yasiya/yt-dl.js": "latest"
-const apilink = 'https://www.dark-yasiya-api.site'); // API LINK ( DO NOT CHANGE THIS!! )
+const apilink = 'https://www.dark-yasiya-api.site' // API LINK ( DO NOT CHANGE THIS!! )
 const apkdl = require('../lib/apkdl')
 
 cmd({
