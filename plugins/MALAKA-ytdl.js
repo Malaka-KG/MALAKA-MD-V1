@@ -612,7 +612,6 @@ cmd(videoCommand, async (bot, message, chat, context) => {
   }
 });
 
-const yts = require('yt-search');
 const fg = require('api-dylux');
 
 // -------- Song Download --------
