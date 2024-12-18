@@ -14,4 +14,5 @@ module.exports = {
     ANTI_LINK: process.env.ANTI_LINK || "true",
     ANTI_BAD_WORD: process.env.ANTI_BAD_WORD || "true",
     ANTI_DELETE: process.env.ANTI_DELETE || "true",
+    AUTO_TYPING: process.env.AUTO_TYPING || "true",
 };
