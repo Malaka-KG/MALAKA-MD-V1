@@ -100,7 +100,7 @@ await conn.readMessages([mek.key])
 //=========autobio=======//
 if (config.AUTO_BIO === 'true'){
                await
-conn.updateProfileStatus(`𝗤𝗨𝗘𝗘𝗡-𝗖𝗛𝗢𝗢𝗧𝗬-𝗡𝗘𝗟𝗨𝗠𝗜-𝗠𝗗 🇱🇰 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱➤ 𝗧𝗵𝗶𝘀 𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝘁 𝗛𝗮𝘃𝗲 𝗕𝗲𝗲𝗻 𝗥𝘂𝗻𝗻𝗶𝗻𝗴 𝗙𝗼𝗿 ⚡💻`)
+conn.updateProfileStatus(`MALAKA-MD-V1 🇱🇰 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱➤ 𝗧𝗵𝗶𝘀 𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝘁 𝗛𝗮𝘃𝗲 𝗕𝗲𝗲𝗻 𝗥𝘂𝗻𝗻𝗶𝗻𝗴 𝗙𝗼𝗿 ⚡💻`)
 }
 const m = sms(conn, mek)
 const type = getContentType(mek.message)
@@ -221,7 +221,7 @@ command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, i
 })
 }
 app.get("/", (req, res) => {
-res.send("hey,QUEEN-CHOOTY-NELUMI-MD bot started✅");
+res.send("hey,MALAKA-MD-V1 bot started✅");
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 setTimeout(() => {
