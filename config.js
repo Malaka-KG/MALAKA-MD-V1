@@ -15,4 +15,5 @@ module.exports = {
     ANTI_BAD_WORD: process.env.ANTI_BAD_WORD || "true",
     ANTI_DELETE: process.env.ANTI_DELETE || "true",
     AUTO_TYPING: process.env.AUTO_TYPING || "true",
+    OMDB_API_KEY: process.env.OMDB_API_KEY || "76cb7f39", // omdbapi.com
 };
