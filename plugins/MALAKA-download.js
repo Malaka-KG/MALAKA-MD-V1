@@ -5,6 +5,7 @@ const { facebook } = require("@mrnima/facebook-downloader");
 const { igdl } = require("ruhend-scraper");
 const axios = require('axios');
 const { cmd, commands } = require("../command");
+const config = require('../config'); // Ensure your API key is in config
 const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js'); // request package.json "@dark-yasiya/yt-dl.js": "latest"
 const apilink = 'https://www.dark-yasiya-api.site' // API LINK ( DO NOT CHANGE THIS!! )
 const apkdl = require('../lib/apkdl')
@@ -1012,3 +1013,58 @@ cmd({
     await reply("*An error occurred while searching!*");
   }
 });
+
+// Command to fetch movie details
+cmd({
+    pattern: "movie2",
+    desc: "Fetch detailed information about a movie.",
+    category: "utility",
+    react: "🎞️",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        const movieName = args.join(' ');
+        if (!movieName) {
+            return reply("📽️ Please provide the name of the movie.");
+        }
+
+        const apiUrl = `http://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${config.OMDB_API_KEY}`;
+        const response = await axios.get(apiUrl);
+        const data = response.data;
+
+        if (data.Response === "False") {
+            return reply("! Movie not found.");
+        }
+
+        const movieInfo = `
+*🎬 🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳💕⃟* 🎬*
+
+*ᴛɪᴛʟᴇ:* ${data.Title}
+*ʏᴇᴀʀ:* ${data.Year}
+*ʀᴀᴛᴇᴅ:* ${data.Rated}
+*ʀᴇʟᴇᴀꜱᴇᴅ:* ${data.Released}
+*ʀᴜɴᴛɪᴍᴇ:* ${data.Runtime}
+*ɢᴇɴʀᴇ:* ${data.Genre}
+*ᴅɪʀᴇᴄᴛᴏʀ:* ${data.Director}
+*ᴡʀɪᴛᴇʀ:* ${data.Writer}
+*ᴀᴄᴛᴏʀꜱ:* ${data.Actors}
+*ʟᴀɴɢᴜᴀɢᴇ:* ${data.Language}
+*ᴄᴏᴜɴᴛʀʏ:* ${data.Country}
+*ᴀᴡᴀʀᴅꜱ:* ${data.Awards}
+*ɪᴍᴅʙ ʀᴀᴛɪɴɢ:* ${data.imdbRating}
+
+> POWERED BY 🧚‍♂️⃝𝙼𝙰𝙻𝙰𝙺𝙰-𝙼𝙳💕⃟*
+`;
+
+        const imageUrl = data.Poster && data.Poster !== 'N/A' ? data.Poster : config.ALIVE_IMG;
+
+        await conn.sendMessage(from, {
+            image: { url: imageUrl },
+            caption: `${movieInfo}\n> CREATED BY MALAKA-MD`
+        }, { quoted: mek });
+    } catch (e) {
+        console.error(e);
+        reply(`❌ Error: ${e.message}`);
+    }
+});
+
