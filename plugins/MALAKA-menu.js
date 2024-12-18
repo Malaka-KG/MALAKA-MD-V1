@@ -23,7 +23,7 @@ cmd({
 │ *RAM Usage* : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB
 │ *Host Name* : ${require('os').hostname()}
 ╰═════════════════⚆
-│🌸 *LIST MENU*
+│🪀 *LIST MENU*
 │   ───────
 │ _1_ *❂ᴅᴏᴡɴʟᴏᴀᴅ menu❂*
 │ _2_ *❂ᴏᴡɴᴇʀ menu❂*
@@ -36,7 +36,7 @@ cmd({
 ╰═════════════════⚆
 *🌸 Reply the Number you want to select*
 
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 🌸`;
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴀᴋᴀ-ᴍᴅ 👩‍💻`;
 
     // Send Menu Message
     const sentMenuMessage = await bot.sendMessage(from, {
