@@ -615,7 +615,7 @@ cmd(videoCommand, async (bot, message, chat, context) => {
 
 // -------- Song Download --------
 cmd({
-    pattern: 'ytmp3',
+    pattern: 'song8',
     desc: 'download songs',
     react: "🎶",
     category: 'download',
@@ -689,7 +689,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 //==================== Video downloader =========================
 
 cmd({
-    pattern: 'ytmp4',
+    pattern: 'video8',
     desc: 'download videos',
     react: "📽️",
     category: 'download',
