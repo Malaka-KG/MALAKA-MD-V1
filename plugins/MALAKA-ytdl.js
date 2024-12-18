@@ -151,7 +151,7 @@ cmd({
       if (isReplyToOriginal) {
         await bot.sendMessage(userChatId, { react: { text: '⬇️', key: userResponse.key } });
 
-        const downloadResponse = await fetchJson(`https://www.dark-yasiya-api.site/download/ytmp3?url=${videoUrl}`);
+        const downloadResponse = await fetchJson(`https://api.giftedtech.my.id/api/download/ytmp3?apikey=${videoUrl}`);
         const downloadUrl = downloadResponse.result.dl_link;
 
         // Delete the original message
