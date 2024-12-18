@@ -423,7 +423,7 @@ cmd({
           const iframeSrc = $episodePage("div#player-holder iframe").attr('src');
 
           if (iframeSrc) {
-            const downloadApiUrl = `https://api.fgmods.xyz/api/downloader/gdrive?url=${iframeSrc}&apikey=mnp3grlZ`;
+            const downloadApiUrl = `https://www.dark-yasiya-api.site/download/ginisisila?url=${iframeSrc}&apikey=mnp3grlZ`;
 
             try {
               const downloadResponse = await axios.get(downloadApiUrl);
