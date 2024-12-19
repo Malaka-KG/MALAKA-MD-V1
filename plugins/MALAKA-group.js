@@ -1003,31 +1003,48 @@ async(conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, s
     }
 });
 
-cmd({
-    pattern: "join",
-    react: "✅",
-    alias: ["connect"],
-    desc: "Join a group using an invite link.",
-    category: "group",
-    filename: __filename,
-    use: '<group-link>',
-},           
-async (conn, mek, m, { from, body, reply, isOwner }) => {
-    const link = body.split(" ")[1];
-    if (!link) return reply("Please provide a group link!");
+const commandConfig = {
+  "pattern": "join",
+  "react": '📬',
+  "alias": ["joinme", "f_join"],
+  "desc": "To Join a Group from Invite link",
+  "category": "group",
+  "use": ".join < Group Link >",
+  "filename": __filename
+};
 
-    const regex = /chat\.whatsapp\.com\/([0-9A-Za-z]{20,24})/;
-    const match = link.match(regex);
-
-    if (!match) return reply("Invalid group link. Please check again!");
-
-    const inviteCode = match[1];
-
-    try {
-        const metadata = await conn.groupAcceptInvite(inviteCode);
-        reply(`✅ Successfully joined the group: ${metadata.subject}`);
-    } catch (error) {
-        console.error("Join Group Error:", error);
-        reply("Sorry, unable to join the group.");
+cmd(commandConfig, async (message, match, prefix, {
+  from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber,
+  botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants,
+  groupAdmins, isBotAdmins, isCreator, isDev, isAdmins, reply
+}) => {
+  try {
+    const replyMsg = (await fetchJson("https://raw.githubusercontent.com/SILENTLOVER40/SILENT-SOBX-MD-DATA/refs/heads/main/DATABASE/mreply.json")).replyMsg;
+    if (!isCreator && !isDev && !isOwner && !isMe) {
+      return reply(replyMsg.own_cmd);
     }
+    if (!q) {
+      return reply("*Please write the Group Link*️ 🖇️");
+    }
+    let groupLink = args[0].split('https://chat.whatsapp.com/')[1];
+    await message.groupAcceptInvite(groupLink);
+    const successMessage = {
+      'text': "✔️ *Successfully Joined*"
+    };
+    const quotedMessage = {
+      "quoted": match
+    };
+    await message.sendMessage(from, successMessage, quotedMessage);
+  } catch (error) {
+    const errorMessage = {
+      "text": '❌',
+      key: match.key
+    };
+    const reactMessage = {
+      "react": errorMessage
+    };
+    await message.sendMessage(from, reactMessage);
+    console.log(error);
+    reply("❌ *Error Accurated !!*\n\n" + error);
+  }
 });
