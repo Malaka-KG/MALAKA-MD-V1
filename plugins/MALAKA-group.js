@@ -1002,3 +1002,32 @@ async(conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, s
         reply(`❌ *Failed to add number ${number}.*\n*Reason:* ${err.message}`);
     }
 });
+
+cmd({
+    pattern: "join",
+    react: "✅",
+    alias: ["connect"],
+    desc: "Join a group using an invite link.",
+    category: "group",
+    filename: __filename,
+    use: '<group-link>',
+},           
+async (conn, mek, m, { from, body, reply, isOwner }) => {
+    const link = body.split(" ")[1];
+    if (!link) return reply("Please provide a group link!");
+
+    const regex = /chat\.whatsapp\.com\/([0-9A-Za-z]{20,24})/;
+    const match = link.match(regex);
+
+    if (!match) return reply("Invalid group link. Please check again!");
+
+    const inviteCode = match[1];
+
+    try {
+        const metadata = await conn.groupAcceptInvite(inviteCode);
+        reply(`✅ Successfully joined the group: ${metadata.subject}`);
+    } catch (error) {
+        console.error("Join Group Error:", error);
+        reply("Sorry, unable to join the group.");
+    }
+});
