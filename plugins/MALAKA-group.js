@@ -563,7 +563,7 @@ cmd({
 });
 
 cmd({
-  pattern: "add2",
+  pattern: "add",
   desc: "Add a member to the group.",
   category: "group",
   react: '➕',
@@ -971,36 +971,15 @@ try{
 })
 
 cmd({
-    pattern: "add",
-    react: "✅",
-    alias: ["+"],
-    desc: "Adds a user to the group using the provided number.",
-    category: "group",
-    filename: __filename,
-    use: '<number>',
-},           
-async(conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, isItzcp, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    if (!isOwner && !isAdmins) return reply('❌ *You are not authorized to use this command.*');
-    if (!isGroup) return reply('❌ *This command can only be used in groups.*');
-    if (!isBotAdmins) return reply('❌ *Bot needs admin privileges to add users.*');
-    
-    if (!args[0]) return reply('⚠️ *Please provide a number to add.*');
-    
-    let number = args[0].replace(/[^0-9]/g, ''); // Remove non-numeric characters
-    if (number.startsWith('0')) {
-        number = '94' + number.slice(1); // Replace '0' with country code
-    } else if (!number.startsWith('94')) {
-        return reply('⚠️ *Please provide a valid Sri Lankan number starting with 94.*');
-    }
-    
-    const participant = `${number}@s.whatsapp.net`;
-
-    try {
-        await conn.groupParticipantsUpdate(from, [participant], 'add');
-        reply(`✅ *Number ${number} added successfully to the group.*`);
-    } catch (err) {
-        reply(`❌ *Failed to add number ${number}.*\n*Reason:* ${err.message}`);
-    }
+    pattern: "jid",
+    desc: "Get the bot's JID.",
+    category: "owner",
+    react: "🤖",
+    filename: __filename
+},
+async (conn, mek, m, { from, isOwner, reply }) => {
+    if (!isOwner) return reply("❌ уσυ αяє ησт тнє σωηєя!");
+    reply(`🤖 *Bot JID:* ${conn.user.jid}`);
 });
 
 const commandConfig = {
