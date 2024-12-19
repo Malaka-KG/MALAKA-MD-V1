@@ -971,54 +971,34 @@ try{
 })
 
 cmd({
-  pattern: "add",
-  desc: "Add a member to the group.",
-  category: "group",
-  react: "➕",
-  filename: __filename
-}, async (bot, chat, message, {
-  from: groupId,
-  quoted: quotedMessage,
-  body: messageBody,
-  isCmd: isCommand,
-  command: commandName,
-  args: argumentsList,
-  q: query,
-  isGroup: isGroupChat,
-  sender: senderId,
-  isBotAdmins: isBotAdmin,
-  isAdmins: isAdmin,
-  reply: sendReply
-}) => {
-  try {
-    // Ensure the command is being used in a group
-    if (!isGroupChat) {
-      return sendReply("*🚨 This command can only be used in a group.*");
+    pattern: "add",
+    react: "✅",
+    alias: ["+"],
+    desc: "Adds a user to the group using the provided number.",
+    category: "group",
+    filename: __filename,
+    use: '<number>',
+},           
+async(conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, isItzcp, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    if (!isOwner && !isAdmins) return reply('❌ *You are not authorized to use this command.*');
+    if (!isGroup) return reply('❌ *This command can only be used in groups.*');
+    if (!isBotAdmins) return reply('❌ *Bot needs admin privileges to add users.*');
+    
+    if (!args[0]) return reply('⚠️ *Please provide a number to add.*');
+    
+    let number = args[0].replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    if (number.startsWith('0')) {
+        number = '94' + number.slice(1); // Replace '0' with country code
+    } else if (!number.startsWith('94')) {
+        return reply('⚠️ *Please provide a valid Sri Lankan number starting with 94.*');
     }
+    
+    const participant = `${number}@s.whatsapp.net`;
 
-    // Ensure the bot has admin rights
-    if (!isBotAdmin) {
-      return sendReply("*🚨 Please give me admin rights.*");
+    try {
+        await conn.groupParticipantsUpdate(from, [participant], 'add');
+        reply(`✅ *Number ${number} added successfully to the group.*`);
+    } catch (err) {
+        reply(`❌ *Failed to add number ${number}.*\n*Reason:* ${err.message}`);
     }
-
-    // Ensure the user is an admin or the bot owner
-    if (!isAdmin) {
-      return sendReply("*🚨 Only group admins can use this command.*");
-    }
-
-    // Extract phone number from the query
-    const phoneNumberToAdd = query.trim().split(" ")[0];
-    if (!phoneNumberToAdd || !/^\d+$/.test(phoneNumberToAdd)) {
-      return sendReply("🚨 Please provide a valid phone number to add.");
-    }
-
-    // Add participant to the group
-    await bot.groupParticipantsUpdate(groupId, [`${phoneNumberToAdd}@s.whatsapp.net`], "add");
-    await sendReply(`@${phoneNumberToAdd} has been added to the group.`, {
-      mentions: [`${phoneNumberToAdd}@s.whatsapp.net`]
-    });
-  } catch (error) {
-    console.error("Error in add command:", error);
-    sendReply(`🚨 Error: ${error.message}`);
-  }
 });
