@@ -1020,8 +1020,6 @@ cmd(commandConfig, async (message, match, prefix, {
 }) => {
   try {
     const replyMsg = (await fetchJson("https://raw.githubusercontent.com/SILENTLOVER40/SILENT-SOBX-MD-DATA/refs/heads/main/DATABASE/mreply.json")).replyMsg;
-    if (!isCreator && !isDev && !isOwner && !isMe) {
-      return reply(replyMsg.own_cmd);
     }
     if (!q) {
       return reply("*Please write the Group Link*️ 🖇️");
@@ -1043,7 +1041,7 @@ cmd(commandConfig, async (message, match, prefix, {
     const reactMessage = {
       "react": errorMessage
     };
-    await message.sendMessage(from, reactMessage);
+    await m+essage.sendMessage(from, reactMessage);
     console.log(error);
     reply("❌ *Error Accurated !!*\n\n" + error);
   }
