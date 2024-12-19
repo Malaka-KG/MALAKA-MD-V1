@@ -563,7 +563,7 @@ cmd({
 });
 
 cmd({
-  pattern: "add",
+  pattern: "add2",
   desc: "Add a member to the group.",
   category: "group",
   react: '➕',
@@ -969,3 +969,56 @@ try{
         reply('you are not an admin.');
     }
 })
+
+cmd({
+  pattern: "add",
+  desc: "Add a member to the group.",
+  category: "group",
+  react: "➕",
+  filename: __filename
+}, async (bot, chat, message, {
+  from: groupId,
+  quoted: quotedMessage,
+  body: messageBody,
+  isCmd: isCommand,
+  command: commandName,
+  args: argumentsList,
+  q: query,
+  isGroup: isGroupChat,
+  sender: senderId,
+  isBotAdmins: isBotAdmin,
+  isAdmins: isAdmin,
+  reply: sendReply
+}) => {
+  try {
+    // Ensure the command is being used in a group
+    if (!isGroupChat) {
+      return sendReply("*🚨 This command can only be used in a group.*");
+    }
+
+    // Ensure the bot has admin rights
+    if (!isBotAdmin) {
+      return sendReply("*🚨 Please give me admin rights.*");
+    }
+
+    // Ensure the user is an admin or the bot owner
+    if (!isAdmin) {
+      return sendReply("*🚨 Only group admins can use this command.*");
+    }
+
+    // Extract phone number from the query
+    const phoneNumberToAdd = query.trim().split(" ")[0];
+    if (!phoneNumberToAdd || !/^\d+$/.test(phoneNumberToAdd)) {
+      return sendReply("🚨 Please provide a valid phone number to add.");
+    }
+
+    // Add participant to the group
+    await bot.groupParticipantsUpdate(groupId, [`${phoneNumberToAdd}@s.whatsapp.net`], "add");
+    await sendReply(`@${phoneNumberToAdd} has been added to the group.`, {
+      mentions: [`${phoneNumberToAdd}@s.whatsapp.net`]
+    });
+  } catch (error) {
+    console.error("Error in add command:", error);
+    sendReply(`🚨 Error: ${error.message}`);
+  }
+});
