@@ -349,25 +349,23 @@ cmd({
 cmd({
   pattern: "ginisisila",
   alias: ["cartoon"],
-  react: '📑',
-  category: 'download',
-  desc: 'ginisisilacartoon.net',
+  react: "📑",
+  category: "download",
+  desc: "ginisisilacartoon.net",
   filename: __filename
-}, async (messageContext) => {
-  const { from, q: searchQuery, isDev, reply } = messageContext;
-
-  if (!searchQuery) {
-    return await reply("*Please provide a search query! (e.g., Garfield)*");
-  }
-
+}, async (_bot, _message, _quoted, { from, q, isDev, reply }) => {
   try {
-    const searchUrl = `https://ginisisilacartoon.net/search.php?q=${encodeURIComponent(searchQuery)}`;
+    if (!q) {
+      return await reply("*Please provide a search query! (e.g., Garfield)*");
+    }
+
+    const searchUrl = "https://ginisisilacartoon.net/search.php?q=" + encodeURIComponent(q);
     const response = await axios.get(searchUrl);
     const $ = cheerio.load(response.data);
-
     let results = [];
+
     $("div.inner-video-cell").each((index, element) => {
-      const title = $(element).find("div.video-title > a").attr('title');
+      const title = $(element).find("div.video-title > a").attr("title");
       const postedTime = $(element).find("div.posted-time").text().trim();
       const episodeLink = $(element).find("div.video-title > a").attr("href");
       const imageUrl = $(element).find("div.inner-video-thumb-wrapper img").attr("src");
@@ -376,89 +374,59 @@ cmd({
         results.push({
           title,
           postedTime,
-          episodeLink: `https://ginisisilacartoon.net/${episodeLink}`,
+          episodeLink: "https://ginisisilacartoon.net/" + episodeLink,
           imageUrl
         });
       }
     });
 
     if (results.length === 0) {
-      return await reply(`No results found for: ${searchQuery}`);
+      return await reply("No results found for: " + q);
     }
 
-    let responseText = `🔢 *Please reply with the number you want to select*\n\n📺 Search Results for *${searchQuery}:*\n\n`;
-    results.forEach((result, index) => {
-      responseText += `*${index + 1}.* ${result.title}\n🗓️ Posted: ${result.postedTime}\n🔗 Link: ${result.episodeLink}\n\n`;
+    let resultMessage = `🔢 *Please reply with the number you want to select*\n\n📺 Search Results for *${q}:*\n\n`;
+    results.forEach((item, index) => {
+      resultMessage += `*${index + 1}.* ${item.title}\n🗓️ Posted: ${item.postedTime}\n🔗 Link: ${item.episodeLink}\n\n`;
     });
 
-    const sentMessage = await messageContext.sendMessage(from, {
-      text: responseText,
-      contextInfo: {
-        mentionedJid: ["94779062397@s.whatsapp.net"],
-        externalAdReply: {
-          title: "LARA MD",
-          body: "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
-          mediaType: 1,
-          sourceUrl: "https://github.com/sadiyamin",
-          thumbnailUrl: "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
-          renderLargerThumbnail: false,
-          showAdAttribution: true
-        }
-      }
-    }, { quoted: messageContext });
+    const sentMessage = await _bot.sendMessage(from, { text: resultMessage }, { quoted: _quoted });
+    const sentMessageId = sentMessage.key.id;
 
-    const originalMessageId = sentMessage.key.id;
-    messageContext.ev.on("messages.upsert", async (messageEvent) => {
-      const userMessage = messageEvent.messages[0];
+    _bot.ev.on("messages.upsert", async event => {
+      const msg = event.messages[0];
+      if (!msg.message) return;
 
-      if (!userMessage.message) return;
+      const text = msg.message.conversation || msg.message.extendedTextMessage?.text;
+      const isReply = msg.message.extendedTextMessage && msg.message.extendedTextMessage.contextInfo.stanzaId === sentMessageId;
 
-      const userReply = userMessage.message.conversation || userMessage.message.extendedTextMessage?.text;
-      const userJid = userMessage.key.remoteJid;
-      const isReplyToOriginal = userMessage.message.extendedTextMessage && userMessage.message.extendedTextMessage.contextInfo.stanzaId === originalMessageId;
+      if (isReply) {
+        const selectedNumber = parseInt(text.trim());
+        if (!isNaN(selectedNumber) && selectedNumber > 0 && selectedNumber <= results.length) {
+          const selectedResult = results[selectedNumber - 1];
+          const detailsMessage = `*🪄 Name:* ${selectedResult.title}\n⏳ *Date:* ${selectedResult.postedTime}\n📎 *Episode Link:* ${selectedResult.episodeLink}\n\n☘ *We are uploading the Movie/Episode you requested.*`;
 
-      if (isReplyToOriginal) {
-        const selectedIndex = parseInt(userReply.trim());
-
-        if (!isNaN(selectedIndex) && selectedIndex > 0 && selectedIndex <= results.length) {
-          const selectedResult = results[selectedIndex - 1];
-          const episodeDetails = `*🪄 Name:* ${selectedResult.title}\n⏳ *Date:* ${selectedResult.postedTime}\n📎 *Episode Link:* ${selectedResult.episodeLink}\n\n☘ *We are uploading the Movie/Episode you requested.*`;
-
-          await messageContext.sendMessage(userJid, {
+          await _bot.sendMessage(from, {
             image: { url: selectedResult.imageUrl },
-            caption: episodeDetails
-          }, { quoted: userMessage });
+            caption: detailsMessage
+          }, { quoted: msg });
 
-          const episodePageResponse = await axios.get(selectedResult.episodeLink);
-          const $$ = cheerio.load(episodePageResponse.data);
-          const videoIframeSrc = $$("div#player-holder iframe").attr("src");
+          const episodeResponse = await axios.get(selectedResult.episodeLink);
+          const episodePage = cheerio.load(episodeResponse.data);
+          const videoSrc = episodePage("div#player-holder iframe").attr("src");
 
-          if (videoIframeSrc) {
-            const downloadUrl = `https://www.dark-yasiya-api.site/download/ginisisila?url=${videoIframeSrc}`;
-
+          if (videoSrc) {
+            const apiUrl = "https://www.dark-yasiya-api.site/download/ginisisila?url=" + videoSrc;
             try {
-              const downloadResponse = await axios.get(downloadUrl);
-              const downloadLink = downloadResponse.data.result.dl_link;
+              const apiResponse = await axios.get(apiUrl);
+              const downloadLink = apiResponse.data.result.dl_link;
 
               if (downloadLink) {
-                await messageContext.sendMessage(userJid, {
+                await _bot.sendMessage(from, {
                   document: { url: downloadLink },
                   mimetype: "video/mp4",
                   fileName: `Sadeesha | ${selectedResult.title}.mp4`,
-                  caption: `${selectedResult.title} |  *SADEESHA CODER*\n\n> Laara-MD`,
-                  contextInfo: {
-                    mentionedJid: ["94779062397@s.whatsapp.net"],
-                    externalAdReply: {
-                      title: "LARA MD",
-                      body: "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
-                      mediaType: 1,
-                      sourceUrl: "https://github.com/sadiyamin",
-                      thumbnailUrl: "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
-                      renderLargerThumbnail: false,
-                      showAdAttribution: true
-                    }
-                  }
-                }, { quoted: userMessage });
+                  caption: `${selectedResult.title} |  *SADEESHA CODER*\n\n> Laara-MD`
+                }, { quoted: msg });
               } else {
                 await reply("Failed to retrieve the download link for this episode.");
               }
