@@ -1020,7 +1020,6 @@ cmd(commandConfig, async (message, match, prefix, {
 }) => {
   try {
     const replyMsg = (await fetchJson("https://raw.githubusercontent.com/SILENTLOVER40/SILENT-SOBX-MD-DATA/refs/heads/main/DATABASE/mreply.json")).replyMsg;
-    }
     if (!q) {
       return reply("*Please write the Group Link*️ 🖇️");
     }
