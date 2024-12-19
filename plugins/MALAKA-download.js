@@ -347,96 +347,118 @@ cmd({
 });
 
 cmd({
-  pattern: 'ginisisila',
+  pattern: "ginisisila",
+  alias: ["cartoon"],
   react: '📑',
   category: 'download',
-  desc: "ginisisilacartoon.net",
+  desc: 'ginisisilacartoon.net',
   filename: __filename
-}, async (message, response, context) => {
-  const { from, q, reply } = context;
+}, async (messageContext) => {
+  const { from, q: searchQuery, isDev, reply } = messageContext;
+
+  if (!searchQuery) {
+    return await reply("*Please provide a search query! (e.g., Garfield)*");
+  }
 
   try {
-    // Ensure a search query is provided
-    if (!q) {
-      return await reply("*Please provide a search query! (e.g., Garfield)*");
-    }
-
-    // Fetch search results from ginisisilacartoon.net
-    const searchUrl = `https://ginisisilacartoon.net/search.php?q=${encodeURIComponent(q)}`;
-    const searchResponse = await axios.get(searchUrl);
-    const $ = cheerio.load(searchResponse.data);
+    const searchUrl = `https://ginisisilacartoon.net/search.php?q=${encodeURIComponent(searchQuery)}`;
+    const response = await axios.get(searchUrl);
+    const $ = cheerio.load(response.data);
 
     let results = [];
-
     $("div.inner-video-cell").each((index, element) => {
       const title = $(element).find("div.video-title > a").attr('title');
       const postedTime = $(element).find("div.posted-time").text().trim();
-      const episodeLink = $(element).find("div.video-title > a").attr('href');
+      const episodeLink = $(element).find("div.video-title > a").attr("href");
       const imageUrl = $(element).find("div.inner-video-thumb-wrapper img").attr("src");
 
       if (title && episodeLink) {
         results.push({
-          title: title,
-          postedTime: postedTime,
+          title,
+          postedTime,
           episodeLink: `https://ginisisilacartoon.net/${episodeLink}`,
-          imageUrl: imageUrl
+          imageUrl
         });
       }
     });
 
     if (results.length === 0) {
-      return await reply(`No results found for: ${q}`);
+      return await reply(`No results found for: ${searchQuery}`);
     }
 
-    // Send search results to user
-    let responseText = `📺 Search Results for *${q}:*\n\n`;
+    let responseText = `🔢 *Please reply with the number you want to select*\n\n📺 Search Results for *${searchQuery}:*\n\n`;
     results.forEach((result, index) => {
       responseText += `*${index + 1}.* ${result.title}\n🗓️ Posted: ${result.postedTime}\n🔗 Link: ${result.episodeLink}\n\n`;
     });
 
-    const sentMessage = await message.sendMessage(from, { text: responseText }, { quoted: context });
-    const messageId = sentMessage.key.id;
+    const sentMessage = await messageContext.sendMessage(from, {
+      text: responseText,
+      contextInfo: {
+        mentionedJid: ["94779062397@s.whatsapp.net"],
+        externalAdReply: {
+          title: "LARA MD",
+          body: "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
+          mediaType: 1,
+          sourceUrl: "https://github.com/sadiyamin",
+          thumbnailUrl: "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
+          renderLargerThumbnail: false,
+          showAdAttribution: true
+        }
+      }
+    }, { quoted: messageContext });
 
-    // Listen for user's selection
-    message.ev.on("messages.upsert", async (upsert) => {
-      const incomingMessage = upsert.messages[0];
-      if (!incomingMessage.message) return;
+    const originalMessageId = sentMessage.key.id;
+    messageContext.ev.on("messages.upsert", async (messageEvent) => {
+      const userMessage = messageEvent.messages[0];
 
-      const userResponse = incomingMessage.message.conversation || incomingMessage.message.extendedTextMessage?.text;
-      const senderId = incomingMessage.key.remoteJid;
-      const isReplyToBot = incomingMessage.message.extendedTextMessage && incomingMessage.message.extendedTextMessage.contextInfo.stanzaId === messageId;
+      if (!userMessage.message) return;
 
-      if (isReplyToBot) {
-        const selectedIndex = parseInt(userResponse.trim());
+      const userReply = userMessage.message.conversation || userMessage.message.extendedTextMessage?.text;
+      const userJid = userMessage.key.remoteJid;
+      const isReplyToOriginal = userMessage.message.extendedTextMessage && userMessage.message.extendedTextMessage.contextInfo.stanzaId === originalMessageId;
+
+      if (isReplyToOriginal) {
+        const selectedIndex = parseInt(userReply.trim());
 
         if (!isNaN(selectedIndex) && selectedIndex > 0 && selectedIndex <= results.length) {
-          const selectedEpisode = results[selectedIndex - 1];
-          const episodeInfo = `*🪄 Name:* ${selectedEpisode.title}\n⏳ *Date:* ${selectedEpisode.postedTime}\n📎 *Episode Link:* ${selectedEpisode.episodeLink}\n\n☘ *We are uploading the Movie/Episode you requested.*`;
-          const episodeMessage = {
-            image: { url: selectedEpisode.imageUrl },
-            caption: episodeInfo
-          };
+          const selectedResult = results[selectedIndex - 1];
+          const episodeDetails = `*🪄 Name:* ${selectedResult.title}\n⏳ *Date:* ${selectedResult.postedTime}\n📎 *Episode Link:* ${selectedResult.episodeLink}\n\n☘ *We are uploading the Movie/Episode you requested.*`;
 
-          await message.sendMessage(senderId, episodeMessage, { quoted: incomingMessage });
+          await messageContext.sendMessage(userJid, {
+            image: { url: selectedResult.imageUrl },
+            caption: episodeDetails
+          }, { quoted: userMessage });
 
-          const episodeResponse = await axios.get(selectedEpisode.episodeLink);
-          const $episodePage = cheerio.load(episodeResponse.data);
-          const iframeSrc = $episodePage("div#player-holder iframe").attr('src');
+          const episodePageResponse = await axios.get(selectedResult.episodeLink);
+          const $$ = cheerio.load(episodePageResponse.data);
+          const videoIframeSrc = $$("div#player-holder iframe").attr("src");
 
-          if (iframeSrc) {
-            const downloadApiUrl = `https://www.dark-yasiya-api.site/download/ginisisila?url=${iframeSrc}&apikey=mnp3grlZ`;
+          if (videoIframeSrc) {
+            const downloadUrl = `https://www.dark-yasiya-api.site/download/ginisisila?url=${videoIframeSrc}`;
 
             try {
-              const downloadResponse = await axios.get(downloadApiUrl);
-              const downloadUrl = downloadResponse.data.result.downloadUrl;
+              const downloadResponse = await axios.get(downloadUrl);
+              const downloadLink = downloadResponse.data.result.dl_link;
 
-              if (downloadUrl) {
-                await message.sendMessage(senderId, {
-                  document: { url: downloadUrl },
+              if (downloadLink) {
+                await messageContext.sendMessage(userJid, {
+                  document: { url: downloadLink },
                   mimetype: "video/mp4",
-                  fileName: `MR JANIYA | ${selectedEpisode.title}.mp4`,
-                  caption: `${selectedEpisode.title} | *ᴍᴀʟᴀᴋᴀ-ᴍᴅ*\n\n> ᴅᴀʀᴋ-ᴀʟꜰʜᴀ-ʙᴏᴛ`
-                }, { quoted: incomingMessage });
+                  fileName: `Sadeesha | ${selectedResult.title}.mp4`,
+                  caption: `${selectedResult.title} |  *SADEESHA CODER*\n\n> Laara-MD`,
+                  contextInfo: {
+                    mentionedJid: ["94779062397@s.whatsapp.net"],
+                    externalAdReply: {
+                      title: "LARA MD",
+                      body: "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
+                      mediaType: 1,
+                      sourceUrl: "https://github.com/sadiyamin",
+                      thumbnailUrl: "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
+                      renderLargerThumbnail: false,
+                      showAdAttribution: true
+                    }
+                  }
+                }, { quoted: userMessage });
               } else {
                 await reply("Failed to retrieve the download link for this episode.");
               }
@@ -457,7 +479,6 @@ cmd({
     console.error(error);
   }
 });
-
 
 cmd({
   pattern: 'gdrive',
