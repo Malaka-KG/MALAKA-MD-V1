@@ -22,7 +22,7 @@ const sendWelcomeMessage = async (client, groupId, participants) => {
     let welcomeMessage = `*Hey 🫂♥️*\n${mentions}\n*Welcome to Group ⤵️*\n${invisibleSpace}${messageContent}`;
 
     await client.sendMessage(groupId, {
-      image: { url: 'https://i.imgur.com/vzDwkjg.jpeg' },
+      image: { url: 'https://i.ibb.co/PwTkwNQ/20241209-212640.jpg' },
       caption: welcomeMessage,
       mentions: participants
     });
@@ -51,7 +51,7 @@ const sendGroupRulesAlert = async (client, participants, groupName, groupDescrip
           }
 
           await client.sendMessage(participant, {
-            image: { url: 'https://i.imgur.com/vzDwkjg.jpeg' },
+            image: { url: 'https://i.ibb.co/PwTkwNQ/20241209-212640.jpg' },
             caption: alertMessage
           });
         } catch (error) {
