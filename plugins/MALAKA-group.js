@@ -970,18 +970,6 @@ try{
     }
 })
 
-cmd({
-    pattern: "jid",
-    desc: "Get the bot's JID.",
-    category: "owner",
-    react: "🤖",
-    filename: __filename
-},
-async (conn, mek, m, { from, isOwner, reply }) => {
-    if (!isOwner) return reply("❌ уσυ αяє ησт тнє σωηєя!");
-    reply(`🤖 *Bot JID:* ${conn.user.jid}`);
-});
-
 const commandConfig = {
   "pattern": "join",
   "react": '📬',
