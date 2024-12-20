@@ -34,20 +34,20 @@ cmd({
       await message.sendMessage(fromId, {
         'text': "*🚫 ⚠️BAD WORDS NOT ALLOWED⚠️ 🚫*",
         'contextInfo': {
-          'mentionedJid': ["94779062397@s.whatsapp.net"],
+          'mentionedJid': ["94704243771@s.whatsapp.net"],
           'groupMentions': [],
           'forwardingScore': 1,
           'isForwarded': true,
           'forwardedNewsletterMessageInfo': {
             'newsletterJid': "120363192254044294@newsletter",
-            'newsletterName': "Lααɾα-ᴍᴅ ✻",
+            'newsletterName': "ᴍᴀʟᴀᴋᴀ-ᴍᴅ ",
             'serverMessageId': 999
           },
           'externalAdReply': {
-            'title': "LARA MD",
+            'title': "MALAKA-MD",
             'body': "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
             'mediaType': 1,
-            'sourceUrl': 'https://github.com/sadiyamin',
+            'sourceUrl': 'https://github.com/Malaka-KG/MALAKA-MD-V1',
             'thumbnailUrl': 'https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg',
             'renderLargerThumbnail': false,
             'showAdAttribution': true
@@ -92,20 +92,20 @@ cmd({
         'text': "*⚠️ Links are not allowed in this group*\n@" + sender.split('@')[0] + " has been removed. 🚫",
         'mentions': [sender],
         'contextInfo': {
-          'mentionedJid': ["94779062397@s.whatsapp.net"],
+          'mentionedJid': ["94704243771@s.whatsapp.net"],
           'groupMentions': [],
           'forwardingScore': 1,
           'isForwarded': true,
           'forwardedNewsletterMessageInfo': {
             'newsletterJid': "120363192254044294@newsletter",
-            'newsletterName': "Lααɾα-ᴍᴅ ✻",
+            'newsletterName': "ᴍᴀʟᴀᴋᴀ-ᴍᴅ ",
             'serverMessageId': 999
           },
           'externalAdReply': {
             'title': "MALAKA-MD",
             'body': "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
             'mediaType': 1,
-            'sourceUrl': 'https://github.com/sadiyamin',
+            'sourceUrl': 'https://github.com/Malaka-KG/MALAKA-MD-V1',
             'thumbnailUrl': "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
             'renderLargerThumbnail': false,
             'showAdAttribution': true
