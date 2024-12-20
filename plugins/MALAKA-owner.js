@@ -142,16 +142,3 @@ function stopAutoBio() {
         console.log("⚒️ AutoBIO feature stopped.");  // Log the stopping of the feature
     }
           }
-
-cmd({
-  'pattern': "jid",
-  'desc': "Get the bot's JID.",
-  'category': "owner",
-  'react': '🤖',
-  'filename': __filename
-}, async (message, match, args, { from, isOwner, reply }) => {
-  if (!isOwner) {
-    return reply("❌ You are not the owner!");
-  }
-  reply("🤖 *Bot JID:* " + message.user.jid);
-});
