@@ -39,7 +39,7 @@ cmd({
           'forwardingScore': 1,
           'isForwarded': true,
           'forwardedNewsletterMessageInfo': {
-            'newsletterJid': "120363192254044294@newsletter",
+            'newsletterJid': "🔎",
             'newsletterName': "ᴍᴀʟᴀᴋᴀ-ᴍᴅ ",
             'serverMessageId': 999
           },
@@ -97,7 +97,7 @@ cmd({
           'forwardingScore': 1,
           'isForwarded': true,
           'forwardedNewsletterMessageInfo': {
-            'newsletterJid': "120363192254044294@newsletter",
+            'newsletterJid': "🔎",
             'newsletterName': "ᴍᴀʟᴀᴋᴀ-ᴍᴅ ",
             'serverMessageId': 999
           },
