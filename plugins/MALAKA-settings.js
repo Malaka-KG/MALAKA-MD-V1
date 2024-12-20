@@ -67,6 +67,30 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┃   ┣ 8.1 🌸 Auto react On
 ┃   ┗ 8.2 ❌ Auto react Off
 ┃
+┣━ WELCOME_SET🔎 ⤵
+┃   ┣ 9.1 🌸 Auto react On
+┃   ┗ 9.2 ❌ Auto react Off
+┃
+┣━ WELCOME_ALERT ⤵
+┃   ┣ 10.1 🌸 Auto react On
+┃   ┗ 10.2 ❌ Auto react Off
+┃
+┣━ WELCOME ⤵
+┃   ┣ 11.1 🌸 Auto react On
+┃   ┗ 11.2 ❌ Auto react Off
+┃
+┣━ ALLOWS_ONLINE ⤵
+┃   ┣ 12.1 🌸 Auto react On
+┃   ┗ 12.2 ❌ Auto react Off
+┃
+┣━ ANTI_LINK👩‍💻 ⤵
+┃   ┣ 13.1 🌸 Auto react On
+┃   ┗ 13.2 ❌ Auto react Off
+┃
+┣━ ANTI_BAD_WORD ⤵
+┃   ┣ 14.1 🌸 Auto react On
+┃   ┗ 14.2 ❌ Auto react Off
+┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
 > *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ *`;
 
@@ -150,6 +174,54 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
                     break;
                     case '8.2':    
                         reply(".update OWNER_REACT:false");
+                        reply(".restart");
+                    break;
+                    case '9.1':    
+                        reply(".update WELCOME_SET:true");
+                        reply(".restart");
+                    break;
+                    case '9.2':    
+                        reply(".update WELCOME_SET:false");
+                        reply(".restart");
+                    break;
+                    case '10.1':    
+                        reply(".update WELCOME_ALERT:true");
+                        reply(".restart");
+                    break;
+                    case '10.2':    
+                        reply(".update WELCOME_ALERT:false");
+                        reply(".restart");
+                    break;
+                    case '11.1':    
+                        reply(".update WELCOME:true");
+                        reply(".restart");
+                    break;
+                    case '11.2':    
+                        reply(".update WELCOME:false");
+                        reply(".restart");
+                    break;
+                    case '12.1':    
+                        reply(".update ALLOWS_ONLINE:true");
+                        reply(".restart");
+                    break;
+                    case '12.2':    
+                        reply(".update ALLOWS_ONLINE:false");
+                        reply(".restart");
+                    break;
+                    case '13.1':    
+                        reply(".update ANTI_LINK:true");
+                        reply(".restart");
+                    break;
+                    case '13.2':    
+                        reply(".update ANTI_LINK:false");
+                        reply(".restart");
+                    break;
+                    case '14.1':    
+                        reply(".update ANTI_BAD_WORD:true");
+                        reply(".restart");
+                    break;
+                    case '14.2':    
+                        reply(".update ANTI_BAD_WORD:false");
                         reply(".restart");
                     break;
 
