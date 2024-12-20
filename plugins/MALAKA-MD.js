@@ -1,5 +1,8 @@
 const { readEnv } = require("../lib/database");
 const { cmd, commands } = require("../command");
+const fs = require('fs');
+const path = require('path');
+const config = require('../config')
 let listenerRegistered = false;
 
 const sendWelcomeMessage = async (client, groupId, participants) => {
