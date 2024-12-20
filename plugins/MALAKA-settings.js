@@ -67,7 +67,7 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┃   ┣ 8.1 🌸 Auto react On
 ┃   ┗ 8.2 ❌ Auto react Off
 ┃
-┣━ WELCOME_SET🔎 ⤵
+┣━ WELCOME_SET ⤵
 ┃   ┣ 9.1 🌸 Auto react On
 ┃   ┗ 9.2 ❌ Auto react Off
 ┃
@@ -83,11 +83,11 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┃   ┣ 12.1 🌸 Auto react On
 ┃   ┗ 12.2 ❌ Auto react Off
 ┃
-┣━ ANTI_LINK👩‍💻 ⤵
+┣━ ANTI_LINK ⤵
 ┃   ┣ 13.1 🌸 Auto react On
 ┃   ┗ 13.2 ❌ Auto react Off
 ┃
-┣━ ANTI_BAD_WORD ⤵
+┣━ ANTI_BAD ⤵
 ┃   ┣ 14.1 🌸 Auto react On
 ┃   ┗ 14.2 ❌ Auto react Off
 ┃
@@ -217,11 +217,11 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
                         reply(".restart");
                     break;
                     case '14.1':    
-                        reply(".update ANTI_BAD_WORD:true");
+                        reply(".update ANTI_BAD:true");
                         reply(".restart");
                     break;
                     case '14.2':    
-                        reply(".update ANTI_BAD_WORD:false");
+                        reply(".update ANTI_BAD:false");
                         reply(".restart");
                     break;
 
