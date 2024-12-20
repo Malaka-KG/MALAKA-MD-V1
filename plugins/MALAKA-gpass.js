@@ -48,7 +48,7 @@ cmd({
             'body': "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
             'mediaType': 1,
             'sourceUrl': 'https://github.com/Malaka-KG/MALAKA-MD-V1',
-            'thumbnailUrl': 'https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg',
+            'thumbnailUrl': 'https://raw.githubusercontent.com/Malaka-KG/MALAKA-MD/refs/heads/main/img/IMG-20241215-WA0139.jpg',
             'renderLargerThumbnail': false,
             'showAdAttribution': true
           }
@@ -106,7 +106,7 @@ cmd({
             'body': "ꜱᴀᴅᴇᴇꜱʜᴀ ᴛʜᴀʀᴜᴍɪɴ",
             'mediaType': 1,
             'sourceUrl': 'https://github.com/Malaka-KG/MALAKA-MD-V1',
-            'thumbnailUrl': "https://raw.githubusercontent.com/tharumin/Alexa_Voice/refs/heads/main/20241214_204755.jpg",
+            'thumbnailUrl': "https://raw.githubusercontent.com/Malaka-KG/MALAKA-MD/refs/heads/main/img/IMG-20241215-WA0139.jpg",
             'renderLargerThumbnail': false,
             'showAdAttribution': true
           }
