@@ -1,5 +1,6 @@
-</p> <p align="center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Rubik+Dirt&size=65&pause=1000&color=F72C3F&background=FF20A500&center=true&vCenter=true&width=1000&height=150&lines=MALAKA-MD;MADE+BY+DARK+ALFHA+MD+V1" alt="Typing SVG" /></a>
+![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&color=F01&lines=MADE+BY+MALAKA-MD+)
+ 
+<img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
 
 </h3>
 <img src="https://i.ibb.co/QNwLWTN/20241201-230018.jpg" width="300" height="190">
