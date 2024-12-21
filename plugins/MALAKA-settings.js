@@ -94,7 +94,7 @@ async (conn, mek, m, { from, isOwner, quoted, reply }) => {
 ┗━━━━━━━━━━━━━━━━━━━━━━━┛
 > *© ᴍᴀʟᴀᴋᴀ-ᴍᴅ *`;
 
-        const vv = await conn.sendMessage(from, { image: { url: "https://i.ibb.co/V2pdBTJ/20241111-195632.jpg"}, caption: desc }, { quoted: mek });
+        const vv = await conn.sendMessage(from, { image: { url: "https://i.ibb.co/PwTkwNQ/20241209-212640.jpg"}, caption: desc }, { quoted: mek });
 
         conn.ev.on('messages.upsert', async (msgUpdate) => {
             const msg = msgUpdate.messages[0];
